@@ -1,0 +1,5 @@
+
+bin/
+bin/*
+.DS_Store
+Thumbs.db
