@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="javaetk">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../eWON/JavaETK/javaetk_1.4.2/lib/javaetk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

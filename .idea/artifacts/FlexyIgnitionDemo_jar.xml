@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="FlexyIgnitionDemo:jar">
+    <output-path>bin/FlexyIgnitionDemo_jar</output-path>
+    <root id="archive" name="FlexyIgnitionDemo.jar">
+      <element id="module-output" name="FlexyIgnitionDemo" />
+    </root>
+  </artifact>
+</component>
