@@ -1,5 +1,8 @@
 
 bin/
-bin/*
+build/
+.idea/
 .DS_Store
 Thumbs.db
+*.log
+*.iml
