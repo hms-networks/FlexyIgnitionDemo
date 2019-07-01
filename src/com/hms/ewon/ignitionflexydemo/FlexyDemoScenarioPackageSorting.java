@@ -2,8 +2,6 @@ package com.hms.ewon.ignitionflexydemo;
 
 import com.hms.ewon.ignitionflexydemo.devices.FlexyDemoMotor;
 
-import java.io.InputStream;
-
 /**
  * FlexyDemoScenario Implementation of a Package Sorting Facility
  *
@@ -32,14 +30,4 @@ public class FlexyDemoScenarioPackageSorting extends FlexyDemoScenario {
         assert devices != null;
         devices.add( motorOne );
     }
-
-    /**
-     * Return URL for This Scenario's Var_Lst.csv
-     *
-     * @return URL to Var_Lst for This Scenario
-     */
-    protected InputStream getVarLstCSV() {
-        return this.getClass().getResourceAsStream( "/VarLstFiles/PackageSorting.csv" );
-    }
-
 }

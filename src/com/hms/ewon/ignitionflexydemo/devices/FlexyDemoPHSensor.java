@@ -42,6 +42,14 @@ public class FlexyDemoPHSensor extends FlexyDemoFlexy {
     }
 
     /**
+     * Method to handle creation and default value of applicable tags
+     */
+    protected void initTags() {
+        double midPH = 7.0;
+        setTag( "PH", new Double( midPH ) );
+    }
+
+    /**
      * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
      */
     protected void runCycleUpdate() {

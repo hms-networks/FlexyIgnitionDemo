@@ -7,7 +7,9 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -16,6 +18,18 @@ import java.util.Random;
  * @see FlexyDemoScenario
  */
 public class FlexyDemo {
+
+    private static int TAG_ID_COUNTER = 1;
+
+   /**
+    * Constant for Tag Floating Point Type
+    */
+   public static final int TAG_FLOAT = 1;
+
+   /**
+    * Constant for Tag Integer Type
+    */
+   public static final int TAG_INT = 2;
 
     /**
      * Constant for length of each Demo cycle
@@ -253,19 +267,21 @@ public class FlexyDemo {
             int chosenScenario = getChosenScenario();
 
             // Stop Previous Scenario
-            if ( chosenScenario != currentScenario && currentScenario > -1 ) {
-                FlexyDemoScenario previousRunning = ( FlexyDemoScenario ) flexyDemoScenarios.get( currentScenario );
-                previousRunning.stop();
-            }
+            if ( chosenScenario != currentScenario ) {
+                if (currentScenario > -1) {
+                    FlexyDemoScenario previousRunning = ( FlexyDemoScenario ) flexyDemoScenarios.get( currentScenario );
+                    previousRunning.stop();
+                }
+                // Mark Current Scenario
+                currentScenario = chosenScenario;
 
-            // Start New Selected Scenario
-            if ( chosenScenario >= 0 && chosenScenario < flexyDemoScenarios.size() ) {
-                FlexyDemoScenario nextRunning = ( FlexyDemoScenario ) flexyDemoScenarios.get( chosenScenario );
-                nextRunning.start();
+                // Start New Selected Scenario
+                if ( chosenScenario >= 0 && chosenScenario < flexyDemoScenarios.size() ) {
+                    FlexyDemoScenario nextRunning = ( FlexyDemoScenario ) flexyDemoScenarios.get( chosenScenario );
+                    copyVarLst();
+                    nextRunning.start();
+                }
             }
-
-            // Mark Current Scenario
-            currentScenario = chosenScenario;
 
             // WAIT ONE SECOND BEFORE LOOPING AGAIN
             try {
@@ -286,7 +302,7 @@ public class FlexyDemo {
             try {
                 System.out.println( "FlexyDemo was unable to locate required tags on your system. They will now be " +
                         "created." );
-                FlexyDemo.copyVarLst( FlexyDemo.class.getResourceAsStream( "/VarLstFiles/NoScenario.csv" ) );
+                FlexyDemo.copyVarLst();
                 demoStopTag = new TagControl( "DEMOSTOP" );
                 demoScenarioTag = new TagControl( "DEMOSCENARIO" );
             } catch ( Exception ex ) {
@@ -299,11 +315,49 @@ public class FlexyDemo {
     }
 
     /**
-     * Handle Copying Source File to Destination File
-     *
-     * @param csvSrc Stream to Copy From for CSV
+     * Create and return string to be used for tag entry in Var_Lst.csv
+     * @param name Name of Tag
+     * @param type Type of Tag (2 if Int, 1 if Floating Point)
+     * @return var_lst ready string for tag
      */
-    static void copyVarLst( InputStream csvSrc) {
+    static String createVarLstTagString( String name, int type ) {
+       Date date = new Date();
+       SimpleDateFormat dateFormat = new SimpleDateFormat( "D T" );
+       final String builtRes = FlexyDemo.TAG_ID_COUNTER + ";\"" + name + "\";\"\";\"MEM\";\"\";\"" + name +
+                               "\";1.000000;0.000000;0;0;0;1;0;0;0;0;0;0;1;0;\"\";0.000000;0.000000;0;0.000000;0;0;0;0;" +
+                               "1;600;10;-1.000000;0;;;1;1.000000;0.000000;;\"\";\"\";\"\";\"\";;;\"\";\"\";;\"\";;\"\";" +
+                               "\"\";0;" + type + ";0;\"" + dateFormat.format( date ) + "\";0;65472;0" + "\r\n";
+       FlexyDemo.TAG_ID_COUNTER++;
+       return builtRes;
+    }
+
+    private static InputStream createLiveVarLst() {
+    // Add Header of Var_Lst.csv to Built String
+    String builtVarLst =
+        "\"Id\";\"Name\";\"Description\";\"ServerName\";\"TopicName\";\"Address\";\"Coef\";\"Offset\";\"LogEnabled\";" +
+        "\"AlEnabled\";\"AlBool\";\"MemTag\";\"MbsTcpEnabled\";\"MbsTcpFloat\";\"SnmpEnabled\";\"RTLogEnabled\";" +
+        "\"AlAutoAck\";\"ForceRO\";\"SnmpOID\";\"AutoType\";\"AlHint\";\"AlHigh\";\"AlLow\";\"AlTimeDB\";" +
+        "\"AlLevelDB\";\"IVGroupA\";\"IVGroupB\";\"IVGroupC\";\"IVGroupD\";\"PageId\";\"RTLogWindow\";\"RTLogTimer\";" +
+        "\"LogDB\";\"LogTimer\";\"AlLoLo\";\"AlHiHi\";\"MbsTcpRegister\";\"MbsTcpCoef\";\"MbsTcpOffset\";\"EEN\";" +
+        "\"ETO\";\"ECC\";\"ESU\";\"EAT\";\"ESH\";\"SEN\";\"STO\";\"SSU\";\"TEN\";\"TSU\";\"FEN\";\"FFN\";\"FCO\";" +
+        "\"KPI\";\"Type\";\"AlStat\";\"ChangeTime\";\"TagValue\";\"TagQuality\";\"AlType\"\r\n";
+
+    // Add Basic Tags for Demo
+        builtVarLst += createVarLstTagString( "DEMOSTOP", TAG_INT );
+        builtVarLst += createVarLstTagString( "DEMOSCENARIO", TAG_INT );
+
+        // Check if a Scenario is Active
+        if ( currentScenario > -1 ) {
+            FlexyDemoScenario running = ( FlexyDemoScenario ) flexyDemoScenarios.get( currentScenario );
+            builtVarLst += running.genVarLst();
+        }
+        return new ByteArrayInputStream( builtVarLst.getBytes() );
+    }
+
+    /**
+     * Handle Copying Source File to Destination File
+     */
+    static void copyVarLst() {
         try {
             System.out.println( "FlexyDemo is starting FTP Tag Configuration -- Please Wait!" );
             FTPClient ftpClient = new FTPClient();
@@ -315,7 +369,7 @@ public class FlexyDemo {
             }
             ftpClient.login( "adm", "adm" );
             ftpClient.setFileType( FTP.BINARY_FILE_TYPE );
-            ftpClient.storeFile( "var_lst.csv", csvSrc );
+            ftpClient.storeFile( "var_lst.csv", createLiveVarLst() );
             ftpClient.logout();
             ftpClient.disconnect();
             System.out.println( "FlexyDemo has finished FTP Tag Configuration -- Success!" );

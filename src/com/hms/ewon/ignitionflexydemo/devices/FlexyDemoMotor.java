@@ -42,6 +42,13 @@ public class FlexyDemoMotor extends FlexyDemoFlexy {
     }
 
     /**
+     * Method to handle creation and default value of applicable tags
+     */
+    protected void initTags() {
+        setTag( "RPM", new Integer( PWR_ON ) );
+    }
+
+    /**
      * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
      */
     protected void runCycleUpdate() {

@@ -1,7 +1,5 @@
 package com.hms.ewon.ignitionflexydemo;
 
-import java.io.*;
-
 /**
  * Abstract class representing an entire system of simulated devices/data on HMS Industrial Networks Flexy.
  *
@@ -50,8 +48,6 @@ public abstract class FlexyDemoScenario {
     synchronized void start() {
         if ( isActive ) return;
 
-        writeVarLst();
-
         System.out.println( "FlexyDemo is starting " + name + " -- Please Wait!" );
         startScenario();
         isActive = true;
@@ -92,25 +88,14 @@ public abstract class FlexyDemoScenario {
     protected abstract void genScenario();
 
     /**
-     * Return URL for This Scenario's Var_Lst.csv
-     *
-     * @return URL to Var_Lst for This Scenario
+     * Method to Handle Gathering VarLst Data from Devices
      */
-    protected abstract InputStream getVarLstCSV();
-
-    /**
-     * Write scenario varLstCSV string to the eWON internal s2.csv
-     */
-    private void writeVarLst() {
-
-        try {
-            FlexyDemo.copyVarLst( getVarLstCSV() );
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            System.out.println( "FlexyDemo encountered an error while configuring tags. Application will now " +
-                    "terminate to prevent undefined behavior. ID: FDS01" );
-            System.exit( -1 );
+    String genVarLst() {
+        StringBuffer scenarioVarLst = new StringBuffer();
+        for ( int i = 0; i < devices.size(); i++ ) {
+            scenarioVarLst.append( devices.get( i ).getVarLst() );
         }
+        return scenarioVarLst.toString();
     }
 
 }
