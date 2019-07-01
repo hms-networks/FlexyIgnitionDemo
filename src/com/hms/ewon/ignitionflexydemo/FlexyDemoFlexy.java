@@ -47,6 +47,26 @@ public abstract class FlexyDemoFlexy implements Runnable {
     public FlexyDemoFlexy( String name ) {
         this.name = name;
         this.tags = new HashMap();
+        initTags();
+    }
+
+    abstract protected void initTags();
+
+    String getVarLst() {
+        Iterator tagPairs = tags.entrySet().iterator();
+        StringBuffer builtRes = new StringBuffer();
+        while ( tagPairs.hasNext() ) {
+            Map.Entry tag = ( Map.Entry ) tagPairs.next();
+            String tagName = ( String ) tag.getKey();
+            Object tagValue = tag.getValue();
+
+            if ( tagValue instanceof Integer ) {
+                builtRes.append( FlexyDemo.createVarLstTagString( name + "-" + tagName, FlexyDemo.TAG_INT ) );
+            } else {
+                builtRes.append( FlexyDemo.createVarLstTagString( name + "-" + tagName, FlexyDemo.TAG_FLOAT ) );
+            }
+        }
+        return builtRes.toString();
     }
 
     /**

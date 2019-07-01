@@ -1,7 +1,5 @@
 package com.hms.ewon.ignitionflexydemo;
 
-import java.io.InputStream;
-
 /**
  * FlexyDemoScenario Implementation of a Wastewater Treatment Facility
  *
@@ -23,14 +21,4 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario {
      */
     protected void genScenario() {
     }
-
-    /**
-     * Return URL for This Scenario's Var_Lst.csv
-     *
-     * @return URL to Var_Lst for This Scenario
-     */
-    protected InputStream getVarLstCSV() {
-        return this.getClass().getResourceAsStream( "/VarLstFiles/Wastewater.csv" );
-    }
-
 }

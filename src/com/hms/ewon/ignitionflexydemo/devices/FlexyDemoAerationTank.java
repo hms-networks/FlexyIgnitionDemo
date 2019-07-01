@@ -110,6 +110,17 @@ public class FlexyDemoAerationTank extends FlexyDemoFlexy {
     }
 
     /**
+     * Method to handle creation and default value of applicable tags
+     */
+    protected void initTags() {
+        setTag( "PRESSURE", new Integer( PWR_ON ) );
+        setTag( "BOD", new Integer( PWR_ON ) );
+        setTag( "DISSOLVEDO2", new Integer( PWR_ON ) );
+        setTag( "FILL", new Integer( PWR_ON ) );
+        setTag( "PWR", new Integer( PWR_ON ) );
+    }
+
+    /**
      * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
      */
     protected void runCycleUpdate() {

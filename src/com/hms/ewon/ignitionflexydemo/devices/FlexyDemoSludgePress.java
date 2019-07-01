@@ -47,7 +47,16 @@ public class FlexyDemoSludgePress extends FlexyDemoFlexy {
         this.motorHighRPM = motorHighRPM;
         this.motorIdealRPM = motorIdealRPM;
     }
+    /**
+     * Method to handle creation and default value of applicable tags
+     */
+    protected void initTags() {
 
+        for ( int x = 1; x <= NUM_MOTORS; x++ ) setTag( "MOTOR"+x+"-RPM",
+                new Integer( PWR_ON ) );
+
+        setTag( "PWR", new Integer( PWR_ON ) );
+    }
     /**
      * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
      */
