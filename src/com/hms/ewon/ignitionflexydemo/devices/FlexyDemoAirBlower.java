@@ -34,12 +34,15 @@ public class FlexyDemoAirBlower extends FlexyDemoFlexy {
      * @param airRateLowFT3 lower bound for air flow rate value
      * @param airRateHighFT3 upper bound for air flow rate value
      * @param airRateIdealFT3 ideal value for air flow rate
+     * @param initPowerStatus initial power status at device creation
      */
-    public FlexyDemoAirBlower( String name, int airRateLowFT3, int airRateHighFT3, int airRateIdealFT3 ) {
+    public FlexyDemoAirBlower( String name, int airRateLowFT3, int airRateHighFT3, int airRateIdealFT3,
+                               int initPowerStatus ) {
         super( name );
         this.airRateLowFT3 = airRateLowFT3;
         this.airRateHighFT3 = airRateHighFT3;
         this.airRateIdealFT3 = airRateIdealFT3;
+        this.initPowerStatus = initPowerStatus;
     }
 
     /**
@@ -47,7 +50,7 @@ public class FlexyDemoAirBlower extends FlexyDemoFlexy {
      */
     protected void initTags() {
         setTag( "RATE", new Integer( PWR_ON ) );
-        setTag( "PWR", new Integer( PWR_ON ) );
+        setTag( "PWR", new Integer( initPowerStatus ) );
     }
 
     /**
