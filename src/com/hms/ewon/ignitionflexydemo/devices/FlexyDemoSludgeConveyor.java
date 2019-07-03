@@ -35,12 +35,15 @@ public class FlexyDemoSludgeConveyor extends FlexyDemoFlexy {
      * @param motorLowRPM lower bound for motor rpm value
      * @param motorHighRPM upper bound for motor rpm value
      * @param motorIdealRPM ideal value for motor rpm
+     * @param initPowerStatus initial power status at device creation
      */
-    public FlexyDemoSludgeConveyor( String name, int motorLowRPM, int motorHighRPM, int motorIdealRPM ) {
+    public FlexyDemoSludgeConveyor( String name, int motorLowRPM, int motorHighRPM, int motorIdealRPM,
+                                    int initPowerStatus ) {
         super( name );
         this.motorLowRPM = motorLowRPM;
         this.motorHighRPM = motorHighRPM;
         this.motorIdealRPM = motorIdealRPM;
+        this.initPowerStatus = initPowerStatus;
     }
 
     /**
@@ -48,7 +51,7 @@ public class FlexyDemoSludgeConveyor extends FlexyDemoFlexy {
      */
     protected void initTags() {
         setTag( "MOTOR1-RPM", new Integer( PWR_ON ) );
-        setTag( "PWR", new Integer( PWR_ON ) );
+        setTag( "PWR", new Integer( initPowerStatus ) );
     }
 
     /**

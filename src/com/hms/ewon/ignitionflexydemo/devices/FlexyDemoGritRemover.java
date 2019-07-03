@@ -52,9 +52,10 @@ public class FlexyDemoGritRemover extends FlexyDemoFlexy {
      * @param motorLowRPM lower bound for motor rpm value
      * @param motorHighRPM upper bound for motor rpm value
      * @param motorIdealRPM ideal value for motor rpm
+     * @param initPowerStatus initial power status at device creation
      */
     public FlexyDemoGritRemover( String name, int flowLowGPM, int flowHighGPM, int flowIdealGPM, int motorLowRPM,
-                                 int motorHighRPM, int motorIdealRPM ) {
+                                 int motorHighRPM, int motorIdealRPM, int initPowerStatus ) {
         super( name );
         this.flowLowGPM = flowLowGPM;
         this.flowHighGPM = flowHighGPM;
@@ -62,6 +63,7 @@ public class FlexyDemoGritRemover extends FlexyDemoFlexy {
         this.motorLowRPM = motorLowRPM;
         this.motorHighRPM = motorHighRPM;
         this.motorIdealRPM = motorIdealRPM;
+        this.initPowerStatus = initPowerStatus;
     }
 
     /**
@@ -70,7 +72,7 @@ public class FlexyDemoGritRemover extends FlexyDemoFlexy {
     protected void initTags() {
         setTag( "MOTOR1-RPM", new Integer( PWR_ON ) );
         setTag( "FLOW", new Integer( PWR_ON ) );
-        setTag( "PWR", new Integer( PWR_ON ) );
+        setTag( "PWR", new Integer( initPowerStatus ) );
     }
 
     /**

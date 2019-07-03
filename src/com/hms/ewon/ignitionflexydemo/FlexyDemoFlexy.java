@@ -40,6 +40,11 @@ public abstract class FlexyDemoFlexy implements Runnable {
     private final HashMap tags;
 
     /**
+     * Temporary variable used for initializing the power state
+     */
+    public int initPowerStatus = PWR_ON;
+
+    /**
      * Basic <code>FlexyDemoFlexy</code> constructor. Primarily called by implementation specific constructors
      *
      * @param name name of this <code>FlexyDemoFlexy</code>

@@ -35,12 +35,15 @@ public class FlexyDemoAirCompressor extends FlexyDemoFlexy {
      * @param pressureLowPSI lower bound for pressure value
      * @param pressureHighPSI upper bound for pressure value
      * @param pressureIdealPSI ideal value for pressure
+     * @param initPowerStatus initial power status at device creation
      */
-    public FlexyDemoAirCompressor( String name, int pressureLowPSI, int pressureHighPSI, int pressureIdealPSI ) {
+    public FlexyDemoAirCompressor( String name, int pressureLowPSI, int pressureHighPSI, int pressureIdealPSI,
+                                   int initPowerStatus ) {
         super( name );
         this.pressureLowPSI = pressureLowPSI;
         this.pressureHighPSI = pressureHighPSI;
         this.pressureIdealPSI = pressureIdealPSI;
+        this.initPowerStatus = initPowerStatus;
     }
 
     /**
@@ -48,7 +51,7 @@ public class FlexyDemoAirCompressor extends FlexyDemoFlexy {
      */
     protected void initTags() {
         setTag( "PRESSURE", new Integer( PWR_ON ) );
-        setTag( "PWR", new Integer( PWR_ON ) );
+        setTag( "PWR", new Integer( initPowerStatus ) );
     }
 
     /**

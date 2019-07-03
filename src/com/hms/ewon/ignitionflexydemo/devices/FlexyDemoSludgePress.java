@@ -40,12 +40,15 @@ public class FlexyDemoSludgePress extends FlexyDemoFlexy {
      * @param motorLowRPM lower bound for motor rpm value
      * @param motorHighRPM upper bound for motor rpm value
      * @param motorIdealRPM ideal value for motor rpm
+     * @param initPowerStatus initial power status at device creation
      */
-    public FlexyDemoSludgePress( String name, int motorLowRPM, int motorHighRPM, int motorIdealRPM ) {
+    public FlexyDemoSludgePress( String name, int motorLowRPM, int motorHighRPM, int motorIdealRPM,
+                                 int initPowerStatus ) {
         super( name );
         this.motorLowRPM = motorLowRPM;
         this.motorHighRPM = motorHighRPM;
         this.motorIdealRPM = motorIdealRPM;
+        this.initPowerStatus = initPowerStatus;
     }
     /**
      * Method to handle creation and default value of applicable tags
@@ -55,7 +58,7 @@ public class FlexyDemoSludgePress extends FlexyDemoFlexy {
         for ( int x = 1; x <= NUM_MOTORS; x++ ) setTag( "MOTOR"+x+"-RPM",
                 new Integer( PWR_ON ) );
 
-        setTag( "PWR", new Integer( PWR_ON ) );
+        setTag( "PWR", new Integer( initPowerStatus ) );
     }
     /**
      * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.

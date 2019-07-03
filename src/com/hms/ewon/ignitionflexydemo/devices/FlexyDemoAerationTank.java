@@ -89,11 +89,12 @@ public class FlexyDemoAerationTank extends FlexyDemoFlexy {
      * @param dissolvedOxygenLow lower bound for dissolved oxygen
      * @param dissolvedOxygenHigh upper bound for dissolved oxygen
      * @param dissolvedOxygenIdeal ideal value for dissolved oxygen
+     * @param initPowerStatus initial power status at device creation
      */
     public FlexyDemoAerationTank( String name, int pressureLowPSI, int pressureHighPSI, int pressureIdealPSI,
                                   int fillLowPerc, int fillHighPerc, int fillIdealPerc, int bioOxygenDemandLow,
                                   int bioOxygenDemandHigh, int bioOxygenDemandIdeal, int dissolvedOxygenLow,
-                                  int dissolvedOxygenHigh, int dissolvedOxygenIdeal ) {
+                                  int dissolvedOxygenHigh, int dissolvedOxygenIdeal, int initPowerStatus ) {
         super( name );
         this.pressureLowPSI = pressureLowPSI;
         this.pressureHighPSI = pressureHighPSI;
@@ -107,6 +108,7 @@ public class FlexyDemoAerationTank extends FlexyDemoFlexy {
         this.dissolvedOxygenLow = dissolvedOxygenLow;
         this.dissolvedOxygenHigh = dissolvedOxygenHigh;
         this.dissolvedOxygenIdeal = dissolvedOxygenIdeal;
+        this.initPowerStatus = initPowerStatus;
     }
 
     /**
@@ -117,7 +119,7 @@ public class FlexyDemoAerationTank extends FlexyDemoFlexy {
         setTag( "BOD", new Integer( PWR_ON ) );
         setTag( "DISSOLVEDO2", new Integer( PWR_ON ) );
         setTag( "FILL", new Integer( PWR_ON ) );
-        setTag( "PWR", new Integer( PWR_ON ) );
+        setTag( "PWR", new Integer( initPowerStatus ) );
     }
 
     /**

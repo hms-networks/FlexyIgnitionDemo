@@ -35,12 +35,14 @@ public class FlexyDemoPump extends FlexyDemoFlexy {
      * @param flowLowGPM lower bound for flow value
      * @param flowHighGPM upper bound for flow value
      * @param flowIdealGPM ideal value for flow
+     * @param initPowerStatus initial power status at device creation
      */
-    public FlexyDemoPump( String name, int flowLowGPM, int flowHighGPM, int flowIdealGPM ) {
+    public FlexyDemoPump( String name, int flowLowGPM, int flowHighGPM, int flowIdealGPM, int initPowerStatus ) {
         super( name );
         this.flowLowGPM = flowLowGPM;
         this.flowHighGPM = flowHighGPM;
         this.flowIdealGPM = flowIdealGPM;
+        this.initPowerStatus = initPowerStatus;
     }
 
     /**
@@ -48,7 +50,7 @@ public class FlexyDemoPump extends FlexyDemoFlexy {
      */
     protected void initTags() {
         setTag( "FLOW", new Integer( PWR_ON ) );
-        setTag( "PWR", new Integer( PWR_ON ) );
+        setTag( "PWR", new Integer( initPowerStatus ) );
     }
 
     /**
