@@ -30,6 +30,9 @@ public class FlexyDemoBarScreen extends FlexyDemoFlexy {
      * data for flow.
      *
      * @param name name of this <code>FlexyDemoBarScreen</code>
+     * @param flowLowGPM lower bound for flow value
+     * @param flowHighGPM upper bound for flow value
+     * @param flowIdealGPM ideal value for flow
      */
     public FlexyDemoBarScreen( String name, int flowLowGPM, int flowHighGPM, int flowIdealGPM ) {
         super( name );
@@ -42,13 +45,7 @@ public class FlexyDemoBarScreen extends FlexyDemoFlexy {
      * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
      */
     protected void runCycleUpdate() {
-        setTag( "IN-FLOW", new Integer( FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM, flowIdealGPM ) ) );
-
-        // Parameters: low, high, ideal
-        int randomOutOffset = FlexyDemo.randomIntLowWeight( 0, 3, 1 );
-        setTag( "OUT-FLOW",
-                new Integer( FlexyDemo.randomIntMidWeight( flowLowGPM - randomOutOffset, flowHighGPM - randomOutOffset,
-                        flowIdealGPM - randomOutOffset ) ) );
+        setTag( "FLOW", new Integer( FlexyDemo.randomIntLowWeight( flowLowGPM, flowHighGPM, flowIdealGPM ) ) );
     }
 
 }
