@@ -15,6 +15,16 @@ import java.util.Map;
 public abstract class FlexyDemoFlexy implements Runnable {
 
     /**
+     * Constant for Power Off
+     */
+    public static final int PWR_OFF = 0;
+
+    /**
+     * Constant for Power On
+     */
+    public static final int PWR_ON = 1;
+
+    /**
      * Thread for Simulation of Data Tags and Values
      */
     private Thread flexyDemoThread;
@@ -59,23 +69,15 @@ public abstract class FlexyDemoFlexy implements Runnable {
     }
 
     /**
-     * Return value of tag with given name
+     * Return value of tag on Flexy with given name
      *
      * @param name name of tag
      *
-     * @return value of tag with given name
+     * @return value of tag on Flexy with given name
      */
-    public Object getTag( String name ) {
-        return tags.get( name );
-    }
-
-    /**
-     * Return a {@link java.util.Map} with all tags belonging to this <code>FlexyDemoFlexy</code>
-     *
-     * @return Map of this <code>FlexyDemoFlexy</code>'s tags
-     */
-    public Map getAllTags() {
-        return tags;
+    public long getTag( String name ) throws EWException {
+        TagControl thisTag = new TagControl( this.name + "-" + name );
+        return thisTag.getTagValueAsLong();
     }
 
     /**
