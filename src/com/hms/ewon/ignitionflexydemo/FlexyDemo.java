@@ -98,25 +98,25 @@ public class FlexyDemo {
     }
 
     /**
-     * Return a random value between <code>low</code> and <code>high</code> with no weight
+     * Return a random int between <code>low</code> and <code>high</code> with no weight
      *
      * @param low  minimum value chosen
      * @param high maximum value chosen
      *
-     * @return random number between <code>low</code> and <code>high</code> with no weight
+     * @return random int between <code>low</code> and <code>high</code> with no weight
      */
     public static int randomIntNoWeight( int low, int high ) {
         return APP_RANDOM.nextInt( high - low ) + low;
     }
 
     /**
-     * Return a random value between <code>low</code> and <code>high</code> with low weight towards <code>ideal</code>
+     * Return a random int between <code>low</code> and <code>high</code> with low weight towards <code>ideal</code>
      *
      * @param low   minimum value chosen
      * @param high  maximum value chosen
      * @param ideal ideal value that has low weight
      *
-     * @return random number between <code>low</code> and <code>high</code> with low weight towards
+     * @return random int between <code>low</code> and <code>high</code> with low weight towards
      * <code>ideal</code>
      */
     public static int randomIntLowWeight( int low, int high, int ideal ) {
@@ -136,14 +136,14 @@ public class FlexyDemo {
     }
 
     /**
-     * Return a random value between <code>low</code> and <code>high</code> with medium weight towards
+     * Return a random int between <code>low</code> and <code>high</code> with medium weight towards
      * <code>ideal</code>
      *
      * @param low   minimum value chosen
      * @param high  maximum value chosen
      * @param ideal ideal value that has medium weight
      *
-     * @return random number between <code>low</code> and <code>high</code> with medium weight towards
+     * @return random int between <code>low</code> and <code>high</code> with medium weight towards
      * <code>ideal</code>
      */
     public static int randomIntMidWeight( int low, int high, int ideal ) {
@@ -166,13 +166,13 @@ public class FlexyDemo {
     }
 
     /**
-     * Return a random value between <code>low</code> and <code>high</code> with high towards <code>ideal</code>
+     * Return a random int between <code>low</code> and <code>high</code> with high towards <code>ideal</code>
      *
      * @param low   minimum value chosen
      * @param high  maximum value chosen
      * @param ideal ideal value that has high weight
      *
-     * @return random number between <code>low</code> and <code>high</code> with high weight towards
+     * @return random int between <code>low</code> and <code>high</code> with high weight towards
      * <code>ideal</code>
      */
     public static int randomIntHighWeight( int low, int high, int ideal ) {
@@ -191,6 +191,44 @@ public class FlexyDemo {
 
         // Return random value that is closest to ideal
         int minDiff = Math.min( diff1, Math.min( diff2, Math.min( diff3, diff4 ) ) );
+        if ( minDiff == diff1 ) return r1;
+        else if ( minDiff == diff2 ) return r2;
+        else if ( minDiff == diff3 ) return r3;
+        else return r4;
+    }
+
+    /**
+     * Return a random double between <code>low</code> and <code>high</code> with high towards <code>ideal</code>
+     *
+     * @param low   minimum value chosen
+     * @param high  maximum value chosen
+     * @param ideal ideal value that has high weight
+     *
+     * @return random double between <code>low</code> and <code>high</code> with high weight towards
+     * <code>ideal</code>
+     */
+    public static double randomDoubleHighWeight( double low, double high, double ideal ) {
+        // Calculate Four Random Numbers Between 0.0 and 1.0 and round to 1 decimal place
+        double r1 = low + APP_RANDOM.nextDouble() * (high-low);
+        double r2 = low + APP_RANDOM.nextDouble() * (high-low);
+        double r3 = low + APP_RANDOM.nextDouble() * (high-low);
+        double r4 = low + APP_RANDOM.nextDouble() * (high-low);
+
+        // Round to Two Decimal Places
+        r1 = Math.round(r1*100.0)/100.0;
+        r2 = Math.round(r2*100.0)/100.0;
+        r3 = Math.round(r3*100.0)/100.0;
+        r4 = Math.round(r4*100.0)/100.0;
+
+        // Calculate Difference Between Ideal and each Random Value
+        double diff1 = Math.abs( ideal - r1 );
+        double diff2 = Math.abs( ideal - r2 );
+        double diff3 = Math.abs( ideal - r3 );
+        double diff4 = Math.abs( ideal - r4 );
+
+
+        // Return random value that is closest to ideal
+        double minDiff = Math.min( diff1, Math.min( diff2, Math.min( diff3, diff4 ) ) );
         if ( minDiff == diff1 ) return r1;
         else if ( minDiff == diff2 ) return r2;
         else if ( minDiff == diff3 ) return r3;

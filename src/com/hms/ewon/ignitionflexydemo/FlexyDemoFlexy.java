@@ -115,6 +115,8 @@ public abstract class FlexyDemoFlexy implements Runnable {
                     thisTag.setTagValueAsInt( ( ( Integer ) tagValue ).intValue() );
                 } else if ( tagValue instanceof Long ) {
                     thisTag.setTagValueAsLong( ( ( Long ) tagValue ).longValue() );
+                } else if ( tagValue instanceof Double ) {
+                    thisTag.setTagValueAsDouble( ( ( Double ) tagValue ).doubleValue() );
                 }
             } catch ( EWException e ) {
                 System.out.println( "FlexyDemo encountered an error while updating " + tagName + " as a tag! Check " +
