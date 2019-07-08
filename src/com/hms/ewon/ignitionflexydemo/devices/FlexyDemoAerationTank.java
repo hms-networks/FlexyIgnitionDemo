@@ -127,7 +127,7 @@ public class FlexyDemoAerationTank extends FlexyDemoFlexy {
      */
     protected void runCycleUpdate() {
         try {
-            if ( getTag( "PWR" ) == PWR_ON ) {
+            if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
                 setTag( "PRESSURE",
                         new Integer( FlexyDemo.randomIntHighWeight( pressureLowPSI, pressureHighPSI, pressureIdealPSI ) ) );
                 setTag( "BOD",

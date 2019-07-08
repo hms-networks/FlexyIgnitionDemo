@@ -100,7 +100,7 @@ public abstract class FlexyDemoFlexy implements Runnable {
      *
      * @return value of tag on Flexy with given name
      */
-    public long getTag( String name ) throws EWException {
+    public long getTagValueAsLong( String name ) throws EWException {
         TagControl thisTag = new TagControl( this.name + "-" + name );
         return thisTag.getTagValueAsLong();
     }
