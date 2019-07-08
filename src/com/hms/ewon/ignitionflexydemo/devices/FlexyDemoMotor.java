@@ -30,6 +30,9 @@ public class FlexyDemoMotor extends FlexyDemoFlexy {
      * values for RPM.
      *
      * @param name name of this <code>FlexyDemoMotor</code>
+     * @param rpmLow lower bound for rpm value
+     * @param rpmHigh upper bound for rpm value
+     * @param rpmIdeal ideal value for rpm
      */
     public FlexyDemoMotor( String name, int rpmLow, int rpmHigh, int rpmIdeal ) {
         super( name );
