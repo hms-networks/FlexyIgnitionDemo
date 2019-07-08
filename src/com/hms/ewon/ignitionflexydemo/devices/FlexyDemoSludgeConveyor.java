@@ -59,7 +59,7 @@ public class FlexyDemoSludgeConveyor extends FlexyDemoFlexy {
      */
     protected void runCycleUpdate() {
         try {
-            if ( getTag( "PWR" ) == PWR_ON ) {
+            if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
                 setTag( "MOTOR1-RPM",
                         new Integer( FlexyDemo.randomIntHighWeight( motorLowRPM, motorHighRPM, motorIdealRPM ) ) );
             } else {

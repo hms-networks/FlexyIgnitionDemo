@@ -58,7 +58,7 @@ public class FlexyDemoAirBlower extends FlexyDemoFlexy {
      */
     protected void runCycleUpdate() {
         try {
-            if ( getTag( "PWR" ) == PWR_ON ) {
+            if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
                 setTag( "RATE",
                         new Integer( FlexyDemo.randomIntMidWeight( airRateLowFT3, airRateHighFT3, airRateIdealFT3 ) ) );
             } else {

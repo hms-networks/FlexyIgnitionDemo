@@ -80,7 +80,7 @@ public class FlexyDemoGritRemover extends FlexyDemoFlexy {
      */
     protected void runCycleUpdate() {
         try {
-            if ( getTag( "PWR" ) == PWR_ON ) {
+            if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
                 setTag( "FLOW",
                         new Integer( FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM,
                                 flowIdealGPM ) ) );
