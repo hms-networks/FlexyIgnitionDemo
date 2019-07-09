@@ -22,6 +22,11 @@ public class FlexyDemo {
     private static int TAG_ID_COUNTER = 1;
 
    /**
+    * Number of Scenarios Available
+    */
+   private static final int NUM_SCENARIOS = 2;
+
+   /**
     * Constant for Tag Floating Point Type
     */
    public static final int TAG_FLOAT = 1;
@@ -92,7 +97,12 @@ public class FlexyDemo {
      * @return Index of chosen scenario
      */
     private static int getChosenScenario() {
-        return ( int ) demoScenarioTag.getTagValueAsLong() - 1;
+       int chosen = ( int ) demoScenarioTag.getTagValueAsLong() - 1;
+       if (chosen >= NUM_SCENARIOS) {
+          System.out.println( "FlexyDemo couldn't locate the selected scenario. Reverting to no scenario." );
+          return -1;
+       }
+        return chosen;
     }
 
     /**
