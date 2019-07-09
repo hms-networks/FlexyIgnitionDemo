@@ -9,65 +9,69 @@ import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
  *
  * @see FlexyDemoFlexy
  */
-public class FlexyDemoPump extends FlexyDemoFlexy {
+public class FlexyDemoPump extends FlexyDemoFlexy
+{
 
-    /**
-     * The lower bound for simulated flow values
-     */
-    private final int flowLowGPM;
+   /**
+    * The lower bound for simulated flow values
+    */
+   private final int flowLowGPM;
 
-    /**
-     * The upper bound for simulated flow values
-     */
-    private final int flowHighGPM;
+   /**
+    * The upper bound for simulated flow values
+    */
+   private final int flowHighGPM;
 
-    /**
-     * The ideal value for simulated flow values
-     */
-    private final int flowIdealGPM;
+   /**
+    * The ideal value for simulated flow values
+    */
+   private final int flowIdealGPM;
 
 
-    /**
-     * Basic <code>FlexyDemoPump</code> constructor. Create and initialize a basic industrial pump with simulated values
-     * for pump flow.
-     *
-     * @param name name of this <code>FlexyDemoPump</code>
-     * @param flowLowGPM lower bound for flow value
-     * @param flowHighGPM upper bound for flow value
-     * @param flowIdealGPM ideal value for flow
-     * @param initPowerStatus initial power status at device creation
-     */
-    public FlexyDemoPump( String name, int flowLowGPM, int flowHighGPM, int flowIdealGPM, int initPowerStatus ) {
-        super( name );
-        this.flowLowGPM = flowLowGPM;
-        this.flowHighGPM = flowHighGPM;
-        this.flowIdealGPM = flowIdealGPM;
-        this.initPowerStatus = initPowerStatus;
-    }
+   /**
+    * Basic <code>FlexyDemoPump</code> constructor. Create and initialize a basic industrial pump with simulated values
+    * for pump flow.
+    *
+    * @param name            name of this <code>FlexyDemoPump</code>
+    * @param flowLowGPM      lower bound for flow value
+    * @param flowHighGPM     upper bound for flow value
+    * @param flowIdealGPM    ideal value for flow
+    * @param initPowerStatus initial power status at device creation
+    */
+   public FlexyDemoPump( String name, int flowLowGPM, int flowHighGPM, int flowIdealGPM, int initPowerStatus )
+   {
+      super( name );
+      this.flowLowGPM = flowLowGPM;
+      this.flowHighGPM = flowHighGPM;
+      this.flowIdealGPM = flowIdealGPM;
+      this.initPowerStatus = initPowerStatus;
+   }
 
-    /**
-     * Method to handle creation and default value of applicable tags
-     */
-    protected void initTags() {
-        setTag( "FLOW", new Integer( PWR_ON ) );
-        setTag( "PWR", new Integer( initPowerStatus ) );
-    }
+   /**
+    * Method to handle creation and default value of applicable tags
+    */
+   protected void initTags()
+   {
+      setTag( "FLOW", new Integer( PWR_ON ) );
+      setTag( "PWR", new Integer( initPowerStatus ) );
+   }
 
-    /**
-     * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
-     */
-    protected void runCycleUpdate() {
-        try {
-            if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
-                setTag( "FLOW",
-                        new Integer( FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM,
-                                flowIdealGPM ) ) );
-            } else {
-                setTag( "FLOW", new Integer( PWR_OFF ) );
-            }
-        } catch ( EWException e ) {
-            System.out.println("[FlexyDemo] An error occurred while updating Pump simulated data.");
-        }
-    }
+   /**
+    * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
+    */
+   protected void runCycleUpdate()
+   {
+      try {
+         if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
+            setTag( "FLOW", new Integer( FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM, flowIdealGPM ) ) );
+         }
+         else {
+            setTag( "FLOW", new Integer( PWR_OFF ) );
+         }
+      }
+      catch ( EWException e ) {
+         System.out.println( "[FlexyDemo] An error occurred while updating Pump simulated data." );
+      }
+   }
 
 }
