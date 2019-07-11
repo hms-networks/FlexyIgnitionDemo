@@ -3,6 +3,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 import com.ewon.ewonitf.EWException;
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of a sludge press
@@ -43,7 +45,8 @@ public class FlexyDemoSludgePress extends FlexyDemoFlexy
     * @param motorIdealRPM   ideal value for motor rpm
     * @param initPowerStatus initial power status at device creation
     */
-   public FlexyDemoSludgePress( String name, int motorLowRPM, int motorHighRPM, int motorIdealRPM, int initPowerStatus )
+   public FlexyDemoSludgePress( String name, int motorLowRPM, int motorHighRPM, int motorIdealRPM,
+                                boolean initPowerStatus )
    {
       super( name );
       this.motorLowRPM = motorLowRPM;
@@ -55,32 +58,35 @@ public class FlexyDemoSludgePress extends FlexyDemoFlexy
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "PWR" ), FlexyDemoTagConfig.TYPE_BOOLEAN ) );
+      for ( int x = 1; x <= NUM_MOTORS; x++ ) {
+         String tagSuffix = "MOTOR" + x + "-RPM";
+         addTagConfig( new FlexyDemoTagConfig( getTagFullName( tagSuffix ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+      }
+   }
 
-      for ( int x = 1; x <= NUM_MOTORS; x++ ) { setTag( "MOTOR" + x + "-RPM", new Integer( PWR_ON ) ); }
-
-      setTag( "PWR", new Integer( initPowerStatus ) );
+   /**
+    * Method to set tags to default values, if necessary
+    */
+   protected void tagDefaults()
+   {
+      FlexyDemoTagManager.setTagAsBoolean( getTagFullName( "PWR" ), initPowerStatus );
    }
 
    /**
     * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
     */
-   protected void runCycleUpdate()
+   protected void runCycleUpdate() throws EWException
    {
-      try {
-         for ( int x = 1; x <= NUM_MOTORS; x++ ) {
-            if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
-               setTag( "MOTOR" + x + "-RPM",
-                       new Integer( FlexyDemo.randomIntHighWeight( motorLowRPM, motorHighRPM, motorIdealRPM ) ) );
-            }
-            else {
-               setTag( "MOTOR" + x + "-RPM", new Integer( PWR_OFF ) );
-            }
+      for ( int x = 1; x <= NUM_MOTORS; x++ ) {
+         String tagSuffix = "MOTOR" + x + "-RPM";
+         int newRPM = 0;
+         if ( FlexyDemoTagManager.getTagAsBoolean( getTagFullName( "PWR" ) ) ) {
+            newRPM = FlexyDemo.randomIntHighWeight( motorLowRPM, motorHighRPM, motorIdealRPM );
          }
-      }
-      catch ( EWException e ) {
-         System.out.println( "[FlexyDemo] An error occurred while updating SludgePress simulated data." );
+         FlexyDemoTagManager.setTagAsInt( getTagFullName( tagSuffix ), newRPM );
       }
    }
 

@@ -2,6 +2,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of a pH sensor
@@ -46,10 +48,17 @@ public class FlexyDemoPHSensor extends FlexyDemoFlexy
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
-      double midPH = 7.0;
-      setTag( "PH", new Double( midPH ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "PH" ), FlexyDemoTagConfig.TYPE_DOUBLE ) );
+   }
+
+   /**
+    * Method to set tags to default values, if necessary
+    */
+   protected void tagDefaults()
+   {
+      // NO TAG DEFAULTS TO SET
    }
 
    /**
@@ -57,7 +66,8 @@ public class FlexyDemoPHSensor extends FlexyDemoFlexy
     */
    protected void runCycleUpdate()
    {
-      setTag( "PH", new Double( FlexyDemo.randomDoubleHighWeight( phLow, phHigh, phIdeal ) ) );
+      double newPH = FlexyDemo.randomDoubleHighWeight( phLow, phHigh, phIdeal );
+      FlexyDemoTagManager.setTagAsDouble( getTagFullName( "PH" ), newPH );
    }
 
 }

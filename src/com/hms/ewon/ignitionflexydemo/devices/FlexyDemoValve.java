@@ -2,6 +2,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of a simple valve.
@@ -51,10 +53,18 @@ public class FlexyDemoValve extends FlexyDemoFlexy
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
-      setTag( "OPEN", new Integer( PWR_ON ) );
-      setTag( "FLOW", new Integer( PWR_ON ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "OPEN" ), FlexyDemoTagConfig.TYPE_BOOLEAN ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "FLOW" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+   }
+
+   /**
+    * Method to set tags to default values, if necessary
+    */
+   protected void tagDefaults()
+   {
+      FlexyDemoTagManager.setTagAsBoolean( getTagFullName( "OPEN" ), open );
    }
 
    /**
@@ -62,14 +72,9 @@ public class FlexyDemoValve extends FlexyDemoFlexy
     */
    protected void runCycleUpdate()
    {
-      setTag( "OPEN", new Integer( ( open ? 1 : 0 ) ) );
-
-      if ( open ) {
-         setTag( "FLOW", new Integer( FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM, flowIdealGPM ) ) );
-      }
-      else {
-         setTag( "FLOW", new Integer( PWR_OFF ) ); // NO FLOW WHEN CLOSED
-      }
+      int newFlow = 0;
+      if ( open ) newFlow = FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM, flowIdealGPM );
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "FLOW" ), newFlow );
    }
 
 }

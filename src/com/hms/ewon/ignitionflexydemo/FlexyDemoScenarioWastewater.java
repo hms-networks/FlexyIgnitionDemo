@@ -69,7 +69,7 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario
       String[] pumpSettlePrimary_names =
             { "PumpSettlePrimary-A01", "PumpSettlePrimary-A02", "PumpSettlePrimary-A03", "PumpSettlePrimary-A04",
               "PumpSettlePrimary-B01", "PumpSettlePrimary-B02", "PumpSettlePrimary-B03", "PumpSettlePrimary-B04" };
-      int[] pumpSettlePrimary_powerStatus =
+      boolean[] pumpSettlePrimary_powerStatus =
             { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON,
               FlexyDemoFlexy.PWR_OFF, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF };
       int pumpSettlePrimary_flowLowGPM = 3800;
@@ -112,7 +112,7 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario
       int[] biogasBlower_rateLowCubicFtSec = { 1, 1 };
       int[] biogasBlower_rateIdealCubicFtSec = { 2, 2 };
       int[] biogasBlower_rateHighCubicFtSec = { 3, 3 };
-      int[] biogasBlower_powerStatus = { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON };
+      boolean[] biogasBlower_powerStatus = { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON };
       for ( int i = 0; i < biogasBlower_names.length; i++ ) {
          devices.add( new FlexyDemoAirBlower( biogasBlower_names[ i ], biogasBlower_rateLowCubicFtSec[ i ],
                                               biogasBlower_rateHighCubicFtSec[ i ],
@@ -125,7 +125,7 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario
       int[] airCompressor_pressureLowPSI = { 200, 190, 150, 220 };
       int[] airCompressor_pressureIdealPSI = { 230, 230, 230, 230 };
       int[] airCompressor_pressureHighPSI = { 260, 260, 260, 260 };
-      int[] airCompressor_powerStatus =
+      boolean[] airCompressor_powerStatus =
             { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON };
       for ( int i = 0; i < airCompressor_names.length; i++ ) {
          devices.add( new FlexyDemoAirCompressor( airCompressor_names[ i ], airCompressor_pressureLowPSI[ i ],
@@ -139,7 +139,7 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario
       int[] sludgePress_motorLowRPM = { 80, 80 };
       int[] sludgePress_motorIdealRPM = { 90, 90 };
       int[] sludgePress_motorHighRPM = { 100, 100 };
-      int[] sludgePress_powerStatus = { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF };
+      boolean[] sludgePress_powerStatus = { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF };
       for ( int i = 0; i < sludgePress_names.length; i++ ) {
          devices.add( new FlexyDemoSludgePress( sludgePress_names[ i ], sludgePress_motorLowRPM[ i ],
                                                 sludgePress_motorHighRPM[ i ], sludgePress_motorIdealRPM[ i ],
@@ -151,7 +151,7 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario
       int[] sludgeConveyor_motorLowRPM = { 100, 100 };
       int[] sludgeConveyor_motorIdealRPM = { 110, 110 };
       int[] sludgeConveyor_motorHighRPM = { 120, 120 };
-      int[] sludgeConveyor_powerStatus = { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF };
+      boolean[] sludgeConveyor_powerStatus = { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF };
       for ( int i = 0; i < sludgeConveyor_names.length; i++ ) {
          devices.add( new FlexyDemoSludgeConveyor( sludgeConveyor_names[ i ], sludgeConveyor_motorLowRPM[ i ],
                                                    sludgeConveyor_motorHighRPM[ i ], sludgeConveyor_motorIdealRPM[ i ],
@@ -174,7 +174,7 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario
       int[] aerationTank_pressureLowPSI = { 12, 1, 12, 1, 13, 0, 12, 12 };
       int[] aerationTank_pressureIdealPSI = { 13, 2, 13, 2, 14, 1, 13, 13 };
       int[] aerationTank_pressureHighPSI = { 14, 3, 14, 3, 15, 2, 14, 14 };
-      int[] aerationTank_powerStatus =
+      boolean[] aerationTank_powerStatus =
             { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON,
               FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF };
       for ( int i = 0; i < aerationTank_names.length; i++ ) {
@@ -192,7 +192,7 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario
             { "PumpSettleSecondary-A01", "PumpSettleSecondary-A02", "PumpSettleSecondary-A03",
               "PumpSettleSecondary-A04", "PumpSettleSecondary-B01", "PumpSettleSecondary-B02",
               "PumpSettleSecondary-B03", "PumpSettleSecondary-B04" };
-      int[] pumpSettleSecondary_powerStatus =
+      boolean[] pumpSettleSecondary_powerStatus =
             { FlexyDemoFlexy.PWR_OFF, FlexyDemoFlexy.PWR_OFF, FlexyDemoFlexy.PWR_OFF, FlexyDemoFlexy.PWR_ON,
               FlexyDemoFlexy.PWR_OFF, FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF, FlexyDemoFlexy.PWR_OFF };
       int[] pumpSettleSecondary_flowLowGPM = { 3000, 3000, 3000, 3000, 3500, 3500, 3500, 3500 };
@@ -260,7 +260,7 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario
 
       // Egress Pumps
       String[] egressPump_names = { "EgressPump-A01", "EgressPump-A02", "EgressPump-B01", "EgressPump-B02" };
-      int[] egressPump_powerStatus =
+      boolean[] egressPump_powerStatus =
             { FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF, FlexyDemoFlexy.PWR_OFF, FlexyDemoFlexy.PWR_OFF };
       int[] egressPump_flowLowGPM = { 1500, 1500, 1500, 1500 };
       int[] egressPump_flowHighGPM = { 1750, 1750, 1750, 1750 };

@@ -3,6 +3,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 import com.ewon.ewonitf.EWException;
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of a simple industrial pump with simulated data for pump flow.
@@ -38,7 +40,7 @@ public class FlexyDemoPump extends FlexyDemoFlexy
     * @param flowIdealGPM    ideal value for flow
     * @param initPowerStatus initial power status at device creation
     */
-   public FlexyDemoPump( String name, int flowLowGPM, int flowHighGPM, int flowIdealGPM, int initPowerStatus )
+   public FlexyDemoPump( String name, int flowLowGPM, int flowHighGPM, int flowIdealGPM, boolean initPowerStatus )
    {
       super( name );
       this.flowLowGPM = flowLowGPM;
@@ -50,28 +52,30 @@ public class FlexyDemoPump extends FlexyDemoFlexy
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
-      setTag( "FLOW", new Integer( PWR_ON ) );
-      setTag( "PWR", new Integer( initPowerStatus ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "PWR" ), FlexyDemoTagConfig.TYPE_BOOLEAN ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "FLOW" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+   }
+
+   /**
+    * Method to set tags to default values, if necessary
+    */
+   protected void tagDefaults()
+   {
+      FlexyDemoTagManager.setTagAsBoolean( getTagFullName( "PWR" ), initPowerStatus );
    }
 
    /**
     * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
     */
-   protected void runCycleUpdate()
+   protected void runCycleUpdate() throws EWException
    {
-      try {
-         if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
-            setTag( "FLOW", new Integer( FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM, flowIdealGPM ) ) );
-         }
-         else {
-            setTag( "FLOW", new Integer( PWR_OFF ) );
-         }
+      int newFlow = 0;
+      if ( FlexyDemoTagManager.getTagAsBoolean( getTagFullName( "PWR" ) ) ) {
+         newFlow = FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM, flowIdealGPM );
       }
-      catch ( EWException e ) {
-         System.out.println( "[FlexyDemo] An error occurred while updating Pump simulated data." );
-      }
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "FLOW" ), newFlow );
    }
 
 }
