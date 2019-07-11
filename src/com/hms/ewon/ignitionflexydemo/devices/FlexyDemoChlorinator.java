@@ -2,6 +2,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of a chlorinator with simulated data
@@ -27,6 +29,11 @@ public class FlexyDemoChlorinator extends FlexyDemoFlexy
    private final int fillIdealPerc;
 
    /**
+    * True/False is drain is open
+    */
+   private final boolean drainOpen;
+
+   /**
     * Basic <code>FlexyDemoChlorinator</code> constructor. Create and initialize a settling tank with simulated data for
     * fill.
     *
@@ -42,16 +49,24 @@ public class FlexyDemoChlorinator extends FlexyDemoFlexy
       this.fillLowPerc = fillLowPerc;
       this.fillHighPerc = fillHighPerc;
       this.fillIdealPerc = fillIdealPerc;
-
-      setTag( "DRAINOPEN", new Integer( drainOpen ? 1 : 0 ) );
+      this.drainOpen = drainOpen;
    }
 
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
-      setTag( "FILL", new Integer( PWR_ON ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "DRAINOPEN" ), FlexyDemoTagConfig.TYPE_BOOLEAN ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "FILL" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+   }
+
+   /**
+    * Method to set tags to default values, if necessary
+    */
+   protected void tagDefaults()
+   {
+      FlexyDemoTagManager.setTagAsBoolean( getTagFullName( "DRAINOPEN" ), drainOpen );
    }
 
    /**
@@ -59,7 +74,8 @@ public class FlexyDemoChlorinator extends FlexyDemoFlexy
     */
    protected void runCycleUpdate()
    {
-      setTag( "FILL", new Integer( FlexyDemo.randomIntMidWeight( fillLowPerc, fillHighPerc, fillIdealPerc ) ) );
+      int newFill = FlexyDemo.randomIntMidWeight( fillLowPerc, fillHighPerc, fillIdealPerc );
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "FILL" ), newFill );
    }
 
 }

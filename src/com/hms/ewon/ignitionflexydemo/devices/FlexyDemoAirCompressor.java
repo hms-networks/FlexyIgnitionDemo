@@ -3,6 +3,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 import com.ewon.ewonitf.EWException;
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of an air compressor
@@ -39,7 +41,7 @@ public class FlexyDemoAirCompressor extends FlexyDemoFlexy
     * @param initPowerStatus  initial power status at device creation
     */
    public FlexyDemoAirCompressor( String name, int pressureLowPSI, int pressureHighPSI, int pressureIdealPSI,
-                                  int initPowerStatus )
+                                  boolean initPowerStatus )
    {
       super( name );
       this.pressureLowPSI = pressureLowPSI;
@@ -51,29 +53,31 @@ public class FlexyDemoAirCompressor extends FlexyDemoFlexy
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
-      setTag( "PRESSURE", new Integer( PWR_ON ) );
-      setTag( "PWR", new Integer( initPowerStatus ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "PWR" ), FlexyDemoTagConfig.TYPE_BOOLEAN ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "PRESSURE" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+   }
+
+   /**
+    * Method to set tags to default values, if necessary
+    */
+   protected void tagDefaults()
+   {
+      FlexyDemoTagManager.setTagAsBoolean( getTagFullName( "PWR" ), initPowerStatus );
    }
 
    /**
     * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
     */
-   protected void runCycleUpdate()
+   protected void runCycleUpdate() throws EWException
    {
-      try {
-         if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
-            setTag( "PRESSURE",
-                    new Integer( FlexyDemo.randomIntHighWeight( pressureLowPSI, pressureHighPSI, pressureIdealPSI ) ) );
-         }
-         else {
-            setTag( "PRESSURE", new Integer( PWR_OFF ) );
-         }
+      int newPressure = 0;
+      if ( FlexyDemoTagManager.getTagAsBoolean( getTagFullName( "PWR" ) ) ) {
+         newPressure = FlexyDemo.randomIntHighWeight( pressureLowPSI, pressureHighPSI, pressureIdealPSI );
       }
-      catch ( EWException e ) {
-         System.out.println( "[FlexyDemo] An error occurred while updating AirCompressor simulated data." );
-      }
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "PRESSURE" ), newPressure );
+
    }
 
 }

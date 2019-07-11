@@ -2,6 +2,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of a settling tank with variable drain
@@ -27,6 +29,11 @@ public class FlexyDemoSettlingDrainTank extends FlexyDemoFlexy
    private final int fillIdealPerc;
 
    /**
+    * The percentage that drain is open
+    */
+   private final int drainOpenPerc;
+
+   /**
     * Basic <code>FlexyDemoSettlingDrainTank</code> constructor. Create and initialize a settling tank with drain with
     * simulated data for fill.
     *
@@ -43,16 +50,24 @@ public class FlexyDemoSettlingDrainTank extends FlexyDemoFlexy
       this.fillLowPerc = fillLowPerc;
       this.fillHighPerc = fillHighPerc;
       this.fillIdealPerc = fillIdealPerc;
-
-      setTag( "DRAINOPENPERC", new Integer( drainOpenPerc ) );
+      this.drainOpenPerc = drainOpenPerc;
    }
 
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
-      setTag( "FILL", new Integer( PWR_ON ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "DRAINOPENPERC" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "FILL" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+   }
+
+   /**
+    * Method to set tags to default values, if necessary
+    */
+   protected void tagDefaults()
+   {
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "DRAINOPENPERC" ), drainOpenPerc );
    }
 
    /**
@@ -60,7 +75,8 @@ public class FlexyDemoSettlingDrainTank extends FlexyDemoFlexy
     */
    protected void runCycleUpdate()
    {
-      setTag( "FILL", new Integer( FlexyDemo.randomIntMidWeight( fillLowPerc, fillHighPerc, fillIdealPerc ) ) );
+      int newFill = FlexyDemo.randomIntMidWeight( fillLowPerc, fillHighPerc, fillIdealPerc );
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "FILL" ), newFill );
    }
 
 }

@@ -3,6 +3,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 import com.ewon.ewonitf.EWException;
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of a grit remover.
@@ -56,7 +58,7 @@ public class FlexyDemoGritRemover extends FlexyDemoFlexy
     * @param initPowerStatus initial power status at device creation
     */
    public FlexyDemoGritRemover( String name, int flowLowGPM, int flowHighGPM, int flowIdealGPM, int motorLowRPM,
-                                int motorHighRPM, int motorIdealRPM, int initPowerStatus )
+                                int motorHighRPM, int motorIdealRPM, boolean initPowerStatus )
    {
       super( name );
       this.flowLowGPM = flowLowGPM;
@@ -71,32 +73,31 @@ public class FlexyDemoGritRemover extends FlexyDemoFlexy
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
-      setTag( "MOTOR1-RPM", new Integer( PWR_ON ) );
-      setTag( "FLOW", new Integer( PWR_ON ) );
-      setTag( "PWR", new Integer( initPowerStatus ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "FLOW" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "MOTOR1-RPM" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "PWR" ), FlexyDemoTagConfig.TYPE_BOOLEAN ) );
+   }
+
+   protected void tagDefaults()
+   {
+      FlexyDemoTagManager.setTagAsBoolean( getTagFullName( "PWR" ), initPowerStatus );
    }
 
    /**
     * Handle tag and data simulation updates. This method is called every {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle.
     */
-   protected void runCycleUpdate()
+   protected void runCycleUpdate() throws EWException
    {
-      try {
-         if ( getTagValueAsLong( "PWR" ) == PWR_ON ) {
-            setTag( "FLOW", new Integer( FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM, flowIdealGPM ) ) );
-            setTag( "MOTOR1-RPM",
-                    new Integer( FlexyDemo.randomIntHighWeight( motorLowRPM, motorHighRPM, motorIdealRPM ) ) );
-         }
-         else {
-            setTag( "FLOW", new Integer( PWR_OFF ) );
-            setTag( "MOTOR1-RPM", new Integer( PWR_OFF ) );
-         }
+      int newRPM = 0;
+      int newFlow = 0;
+      if ( FlexyDemoTagManager.getTagAsBoolean( getTagFullName( "PWR" ) ) ) {
+         newRPM = FlexyDemo.randomIntHighWeight( motorLowRPM, motorHighRPM, motorIdealRPM );
+         newFlow = FlexyDemo.randomIntMidWeight( flowLowGPM, flowHighGPM, flowIdealGPM );
       }
-      catch ( EWException e ) {
-         System.out.println( "[FlexyDemo] An error occurred while updating GritRemover simulated data." );
-      }
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "MOTOR1-RPM" ), newRPM );
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "FLOW" ), newFlow );
    }
 
 }

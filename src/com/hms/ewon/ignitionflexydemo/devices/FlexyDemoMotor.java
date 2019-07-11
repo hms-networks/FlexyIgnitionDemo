@@ -2,6 +2,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of a simple industrial motor with simulated data for rotations per minute.
@@ -46,9 +48,14 @@ public class FlexyDemoMotor extends FlexyDemoFlexy
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
-      setTag( "RPM", new Integer( PWR_ON ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "RPM" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+   }
+
+   protected void tagDefaults()
+   {
+      // NO TAG DEFAULTS TO SET
    }
 
    /**
@@ -56,7 +63,8 @@ public class FlexyDemoMotor extends FlexyDemoFlexy
     */
    protected void runCycleUpdate()
    {
-      setTag( "RPM", new Integer( FlexyDemo.randomIntHighWeight( rpmLow, rpmHigh, rpmIdeal ) ) );
+      int newRPM = FlexyDemo.randomIntHighWeight( rpmLow, rpmHigh, rpmIdeal );
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "RPM" ), newRPM );
    }
 
 }

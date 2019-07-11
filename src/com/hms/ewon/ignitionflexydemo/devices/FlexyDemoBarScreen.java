@@ -2,6 +2,8 @@ package com.hms.ewon.ignitionflexydemo.devices;
 
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
+import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
 
 /**
  * FlexyDemoFlexy implementation of a simple metal bar screen.
@@ -46,9 +48,17 @@ public class FlexyDemoBarScreen extends FlexyDemoFlexy
    /**
     * Method to handle creation and default value of applicable tags
     */
-   protected void initTags()
+   protected void initTagConfigs()
    {
-      setTag( "FLOW", new Integer( PWR_ON ) );
+      addTagConfig( new FlexyDemoTagConfig( getTagFullName( "FLOW" ), FlexyDemoTagConfig.TYPE_INTEGER ) );
+   }
+
+   /**
+    * Method to set tags to default values, if necessary
+    */
+   protected void tagDefaults()
+   {
+      // NO TAG DEFAULTS TO SET
    }
 
    /**
@@ -56,7 +66,8 @@ public class FlexyDemoBarScreen extends FlexyDemoFlexy
     */
    protected void runCycleUpdate()
    {
-      setTag( "FLOW", new Integer( FlexyDemo.randomIntLowWeight( flowLowGPM, flowHighGPM, flowIdealGPM ) ) );
+      int newFlow = FlexyDemo.randomIntLowWeight( flowLowGPM, flowHighGPM, flowIdealGPM );
+      FlexyDemoTagManager.setTagAsInt( getTagFullName( "FLOW" ), newFlow );
    }
 
 }
