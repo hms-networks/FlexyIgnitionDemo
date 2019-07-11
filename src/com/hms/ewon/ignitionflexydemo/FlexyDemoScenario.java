@@ -69,6 +69,11 @@ public abstract class FlexyDemoScenario
       stopScenario();
    }
 
+   public ArrayListFlexy getDevices()
+   {
+      return devices;
+   }
+
    /**
     * Abstract method for implementation specific demo scenario starting procedures
     */
@@ -93,17 +98,4 @@ public abstract class FlexyDemoScenario
     * Abstract method for implementation specific demo scenario creation procedures
     */
    protected abstract void genScenario();
-
-   /**
-    * Method to Handle Gathering VarLst Data from Devices
-    */
-   String genVarLst()
-   {
-      StringBuffer scenarioVarLst = new StringBuffer();
-      for ( int i = 0; i < devices.size(); i++ ) {
-         scenarioVarLst.append( devices.get( i ).getVarLst() );
-      }
-      return scenarioVarLst.toString();
-   }
-
 }

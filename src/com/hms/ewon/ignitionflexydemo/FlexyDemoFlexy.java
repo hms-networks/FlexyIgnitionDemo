@@ -1,11 +1,8 @@
 package com.hms.ewon.ignitionflexydemo;
 
 import com.ewon.ewonitf.EWException;
-import com.ewon.ewonitf.TagControl;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Abstract Class Implementation of a Flexy And Devices Connected to Flexy
@@ -18,12 +15,12 @@ public abstract class FlexyDemoFlexy implements Runnable
    /**
     * Constant for Power Off
     */
-   public static final int PWR_OFF = 0;
+   public static final boolean PWR_OFF = false;
 
    /**
     * Constant for Power On
     */
-   public static final int PWR_ON = 1;
+   public static final boolean PWR_ON = true;
 
    /**
     * Thread for Simulation of Data Tags and Values
@@ -36,14 +33,14 @@ public abstract class FlexyDemoFlexy implements Runnable
    private final String name;
 
    /**
-    * Internal Storage for Flexy Tags and Associated Values
-    */
-   private final HashMap tags;
-
-   /**
     * Temporary variable used for initializing the power state
     */
-   public int initPowerStatus = PWR_ON;
+   public boolean initPowerStatus = PWR_ON;
+
+   /**
+    * Variable to Store Tag Configs
+    */
+   private final ArrayList tagConfigs = new ArrayList();
 
    /**
     * Basic <code>FlexyDemoFlexy</code> constructor. Primarily called by implementation specific constructors
@@ -53,30 +50,12 @@ public abstract class FlexyDemoFlexy implements Runnable
    public FlexyDemoFlexy( String name )
    {
       this.name = name;
-      this.tags = new HashMap();
-      initTags();
+      initTagConfigs();
    }
 
-   abstract protected void initTags();
+   abstract protected void initTagConfigs();
 
-   String getVarLst()
-   {
-      Iterator tagPairs = tags.entrySet().iterator();
-      StringBuffer builtRes = new StringBuffer();
-      while ( tagPairs.hasNext() ) {
-         Map.Entry tag = ( Map.Entry ) tagPairs.next();
-         String tagName = ( String ) tag.getKey();
-         Object tagValue = tag.getValue();
-
-         if ( tagValue instanceof Integer ) {
-            builtRes.append( FlexyDemo.createVarLstTagString( name + "-" + tagName, FlexyDemo.TAG_INT ) );
-         }
-         else {
-            builtRes.append( FlexyDemo.createVarLstTagString( name + "-" + tagName, FlexyDemo.TAG_FLOAT ) );
-         }
-      }
-      return builtRes.toString();
-   }
+   abstract protected void tagDefaults();
 
    /**
     * Returns the name of this <code>FlexyDemoFlexy</code>
@@ -89,35 +68,13 @@ public abstract class FlexyDemoFlexy implements Runnable
    }
 
    /**
-    * Set value of tag with given name to given value.
-    *
-    * @param name  name of tag
-    * @param value new tag value
-    */
-   protected void setTag( String name, Object value )
-   {
-      tags.put( name, value );
-   }
-
-   /**
-    * Return value of tag on Flexy with given name
-    *
-    * @param name name of tag
-    *
-    * @return value of tag on Flexy with given name
-    */
-   public long getTagValueAsLong( String name ) throws EWException
-   {
-      TagControl thisTag = new TagControl( this.name + "-" + name );
-      return thisTag.getTagValueAsLong();
-   }
-
-   /**
     * Method to start Flexy data simulation. Data simulation may be stopped via call to {@link #stopRunning()}
     */
    void startRunning()
    {
       if ( flexyDemoThread != null ) return;
+
+      tagDefaults();
 
       flexyDemoThread = new Thread( this );
       flexyDemoThread.start();
@@ -136,39 +93,36 @@ public abstract class FlexyDemoFlexy implements Runnable
    }
 
    /**
-    * Write all stored tags to the remote Flexy
+    * Get List of Tag Configs for this Device
+    * @return ArrayList of Tag Configs for this Device
     */
-   private void writeAllTags()
-   {
-      Iterator tagPairs = tags.entrySet().iterator();
-      while ( tagPairs.hasNext() ) {
-         Map.Entry tag = ( Map.Entry ) tagPairs.next();
-         String tagName = ( String ) tag.getKey();
-         Object tagValue = tag.getValue();
+   ArrayList getTagConfigs() {
+      return tagConfigs;
+   }
 
-         try {
-            TagControl thisTag = new TagControl( name + "-" + tagName );
-            if ( tagValue instanceof Integer ) {
-               thisTag.setTagValueAsInt( ( ( Integer ) tagValue ).intValue() );
-            }
-            else if ( tagValue instanceof Long ) {
-               thisTag.setTagValueAsLong( ( ( Long ) tagValue ).longValue() );
-            }
-            else if ( tagValue instanceof Double ) {
-               thisTag.setTagValueAsDouble( ( ( Double ) tagValue ).doubleValue() );
-            }
-         }
-         catch ( EWException e ) {
-            System.out.println( "FlexyDemo encountered an error while updating " + tagName + " as a tag! Check " +
-                                "your connection to Flexy, and ensure that tag exists. ID: FDF01" );
-         }
-      }
+   /**
+    * Adds Given Tag Config to this Device
+    * @param flexyDemoTagConfig Tag Config to Add
+    */
+   protected void addTagConfig( FlexyDemoTagConfig flexyDemoTagConfig )
+   {
+      tagConfigs.add( flexyDemoTagConfig );
+   }
+
+   /**
+    * Get and Return Full Tag Name, Including Device Name
+    * @param tagBaseName Base Tag Name
+    * @return Full Tag Name
+    */
+   protected String getTagFullName( String tagBaseName )
+   {
+      return this.name + "-" + tagBaseName;
    }
 
    /**
     * Process tag updates on each {@link FlexyDemo#APP_CYCLE_TIME_MS} cycle
     */
-   protected abstract void runCycleUpdate();
+   protected abstract void runCycleUpdate() throws EWException;
 
    /**
     * Run method for handling tag updates/data simulation
@@ -177,9 +131,25 @@ public abstract class FlexyDemoFlexy implements Runnable
     */
    public void run()
    {
-      while ( FlexyDemo.isRunning() ) {
-         runCycleUpdate();
-         writeAllTags();
+      boolean isRunning = true;
+      while ( isRunning ) {
+         try {
+            runCycleUpdate();
+         }
+         catch ( EWException e ) {
+            System.out.println( "[FlexyDemo] An error occurred while updating tags/data for " + name + "!" );
+         }
+
+         // UPDATE isRunning TAG
+         try
+         {
+            isRunning = FlexyDemo.isRunning();
+         }
+         catch ( EWException e ) {
+            System.out.println( "[FlexyDemo] An error occurred while checking demo run status. Application will now " +
+                                "terminate to prevent unexpected behavior.");
+            System.exit( -1 );
+         }
 
          try {
             Thread.sleep( FlexyDemo.APP_CYCLE_TIME_MS );
