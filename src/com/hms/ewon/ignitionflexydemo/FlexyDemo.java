@@ -1,7 +1,6 @@
 package com.hms.ewon.ignitionflexydemo;
 
 import com.ewon.ewonitf.EWException;
-import com.ewon.ewonitf.TagControl;
 
 import java.util.ArrayList;
 import java.util.Random;
