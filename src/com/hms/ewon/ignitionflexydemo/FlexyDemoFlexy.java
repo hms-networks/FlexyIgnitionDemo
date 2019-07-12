@@ -52,8 +52,16 @@ public abstract class FlexyDemoFlexy implements Runnable {
     initTagConfigs();
   }
 
+  /**
+   * Method called at creation of a <code>FlexyDemoFlexy</code> to handle adding tags and their
+   * configurations to the <code>FlexyDemoTagManager</code>
+   */
   abstract protected void initTagConfigs();
 
+  /**
+   * Method called at activation of this <code>FlexyDemoFlexy</code> corresponding scenario to
+   * handle resetting tags to default values, where applicable
+   */
   abstract protected void tagDefaults();
 
   /**

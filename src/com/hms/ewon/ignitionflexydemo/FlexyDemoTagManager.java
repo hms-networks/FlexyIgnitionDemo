@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
- * Static Class for Handling Flexy Tags
+ * Static Class for Managing eWON Tags and Configurations
  */
 public class FlexyDemoTagManager {
 
@@ -52,11 +52,10 @@ public class FlexyDemoTagManager {
   private static int TAG_ID_COUNTER = 1;
 
   /**
-   * Get and Return Value of Tag as an Integer If unable to get value, Integer.MIN_VALUE is
-   * returned
+   * Get and Return Value of Tag as an Integer
    *
    * @param tagName Name of Tag
-   * @return Value of Tag with tagName
+   * @return Value of Tag
    */
   public static int getTagAsInt(String tagName) throws EWException {
     TagControl intTag = new TagControl(tagName);
@@ -64,10 +63,10 @@ public class FlexyDemoTagManager {
   }
 
   /**
-   * Get and Return Value of Tag as a Boolean If unable to get value, false is returned
+   * Get and Return Value of Tag as a Boolean
    *
    * @param tagName Name of Tag
-   * @return Value of Tag with tagName
+   * @return Value of Tag
    */
   public static boolean getTagAsBoolean(String tagName) throws EWException {
     TagControl boolTag = new TagControl(tagName);
@@ -75,10 +74,10 @@ public class FlexyDemoTagManager {
   }
 
   /**
-   * Get and Return Value of Tag as a Double If unable to get value, Double.MIN_VALUE is returned
+   * Get and Return Value of Tag as a Double
    *
    * @param tagName Name of Tag
-   * @return Value of Tag with tagName
+   * @return Value of Tag
    */
   public static double getTagAsDouble(String tagName) throws EWException {
     TagControl dblTag = new TagControl(tagName);
