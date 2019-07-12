@@ -69,6 +69,10 @@ public abstract class FlexyDemoScenario {
     stopScenario();
   }
 
+  /**
+   * Get and Return an <code>ArrayListFlexy</code> of devices in this scenario.
+   * @return <code>ArrayListFlexy</code> containing devices in this Scenario
+   */
   public ArrayListFlexy getDevices() {
     return devices;
   }

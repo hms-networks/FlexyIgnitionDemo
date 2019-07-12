@@ -252,17 +252,17 @@ public class FlexyDemo {
                 " scenario switching may be unavailable.");
       }
 
-      // Stop Previous Scenario
+      // STOP PREVIOUS SCENARIO
       if (chosenScenario != currentScenario) {
         if (currentScenario > -1) {
           FlexyDemoScenario previousRunning = (FlexyDemoScenario) flexyDemoScenarios
               .get(currentScenario);
           previousRunning.stop();
         }
-        // Mark Current Scenario
+        // MARK CURRENT SCENARIO
         currentScenario = chosenScenario;
 
-        // Start New Selected Scenario
+        // START NEW SELECTED SCENARIO
         if (chosenScenario >= 0 && chosenScenario < flexyDemoScenarios.size()) {
           FlexyDemoScenario nextRunning = (FlexyDemoScenario) flexyDemoScenarios
               .get(chosenScenario);
@@ -292,6 +292,10 @@ public class FlexyDemo {
     }
   }
 
+  /**
+   * Method to trigger <code>FlexyDemoTagManager</code> uploadTagConfig with the scenarios
+   * in this <code>FlexyDemo</code>
+   */
   private static void uploadTagConfig() {
     if (flexyDemoScenarios.size() == 0) {
       System.out.println("[FlexyDemo] No scenarios configured during Tag Config " +
