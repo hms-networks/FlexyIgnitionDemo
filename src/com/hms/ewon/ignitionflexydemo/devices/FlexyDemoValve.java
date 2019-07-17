@@ -1,5 +1,6 @@
 package com.hms.ewon.ignitionflexydemo.devices;
 
+import com.ewon.ewonitf.EWException;
 import com.hms.ewon.ignitionflexydemo.FlexyDemo;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoFlexy;
 import com.hms.ewon.ignitionflexydemo.FlexyDemoTagConfig;
@@ -68,9 +69,9 @@ public class FlexyDemoValve extends FlexyDemoFlexy {
    * Handle tag and data simulation updates. This method is called every {@link
    * FlexyDemo#APP_CYCLE_TIME_MS} cycle.
    */
-  protected void runCycleUpdate() {
+  protected void runCycleUpdate() throws EWException {
     int newFlow = 0;
-    if (open) {
+    if (FlexyDemoTagManager.getTagAsBoolean(getTagFullName("OPEN"))) {
       newFlow = FlexyDemo.randomIntMidWeight(flowLowGPM, flowHighGPM, flowIdealGPM);
     }
     FlexyDemoTagManager.setTagAsInt(getTagFullName("FLOW"), newFlow);
