@@ -261,6 +261,9 @@ public class FlexyDemo {
         // MARK CURRENT SCENARIO
         currentScenario = chosenScenario;
 
+        // FORCE GARBAGE COLLECTION
+        System.gc();
+
         // START NEW SELECTED SCENARIO
         if (chosenScenario >= 0 && chosenScenario < flexyDemoScenarios.size()) {
           FlexyDemoScenario nextRunning = (FlexyDemoScenario) flexyDemoScenarios
