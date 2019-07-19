@@ -11,7 +11,7 @@ import com.hms.ewon.ignitionflexydemo.FlexyDemoTagManager;
  *
  * @see FlexyDemoFlexy
  */
-public class FlexyDemoSludgeConveyor extends FlexyDemoFlexy {
+public class FlexyDemoConveyor extends FlexyDemoFlexy {
 
   /**
    * The lower bound for simulated motor rpm values
@@ -30,16 +30,16 @@ public class FlexyDemoSludgeConveyor extends FlexyDemoFlexy {
 
 
   /**
-   * Basic <code>FlexyDemoSludgeConveyor</code> constructor. Create and initialize a basic conveyor
+   * Basic <code>FlexyDemoConveyor</code> constructor. Create and initialize a basic conveyor
    * belt for sludge with simulated data.
    *
-   * @param name name of this <code>FlexyDemoSludgeConveyor</code>
+   * @param name name of this <code>FlexyDemoConveyor</code>
    * @param motorLowRPM lower bound for motor rpm value
    * @param motorHighRPM upper bound for motor rpm value
    * @param motorIdealRPM ideal value for motor rpm
    * @param initPowerStatus initial power status at device creation
    */
-  public FlexyDemoSludgeConveyor(String name, int motorLowRPM, int motorHighRPM, int motorIdealRPM,
+  public FlexyDemoConveyor(String name, int motorLowRPM, int motorHighRPM, int motorIdealRPM,
       boolean initPowerStatus) {
     super(name);
     this.motorLowRPM = motorLowRPM;
