@@ -321,8 +321,8 @@ public class FlexyDemo {
             "FlexyDemo has started! Tags and Data are simulated and may not reflect actual system data.");
 
     // CREATE DEMO
-    addDemoScenario(new FlexyDemoScenarioWastewater("ExampleWastewaterPlant"));
-    addDemoScenario(new FlexyDemoScenarioPackageSorting("ExamplePackageSortFacility"));
+    addDemoScenario(new FlexyDemoScenarioWastewater("HMS Wastewater Treatment Facility"));
+    addDemoScenario(new FlexyDemoScenarioBottlingPlant("HMS Bubbles (Soda) Bottling Plant"));
 
     // PERFORM AUTOMATIC TAG CONFIGURATION
     uploadTagConfig();
