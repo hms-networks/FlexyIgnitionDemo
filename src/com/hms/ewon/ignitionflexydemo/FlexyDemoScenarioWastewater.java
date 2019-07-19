@@ -152,7 +152,7 @@ public class FlexyDemoScenarioWastewater extends FlexyDemoScenario {
     boolean[] sludgeConveyor_powerStatus = {FlexyDemoFlexy.PWR_ON, FlexyDemoFlexy.PWR_OFF};
     for (int i = 0; i < sludgeConveyor_names.length; i++) {
       devices
-          .add(new FlexyDemoSludgeConveyor(sludgeConveyor_names[i], sludgeConveyor_motorLowRPM[i],
+          .add(new FlexyDemoConveyor(sludgeConveyor_names[i], sludgeConveyor_motorLowRPM[i],
               sludgeConveyor_motorHighRPM[i], sludgeConveyor_motorIdealRPM[i],
               sludgeConveyor_powerStatus[i]));
     }
