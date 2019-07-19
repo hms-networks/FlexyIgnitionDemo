@@ -42,6 +42,16 @@ public abstract class FlexyDemoFlexy implements Runnable {
   private final ArrayList tagConfigs = new ArrayList();
 
   /**
+   * Full/Maximum Fill Value
+   */
+  public static final double FILL_FULL_PERCENT = 100.0;
+
+  /**
+   * Empty Fill Value
+   */
+  public static final double FILL_EMPTY_PERCENT = 0.0;
+
+  /**
    * Basic <code>FlexyDemoFlexy</code> constructor. Primarily called by implementation specific
    * constructors
    *
