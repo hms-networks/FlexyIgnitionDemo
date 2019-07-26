@@ -1,56 +1,56 @@
 <project default="startdeploy">
-	
+
 	<!-- ########  Type your Application/Flexy Parameters ######## -->
-	
+
 	<!-- The project name -->
 	<property name="ProjectName" value="eWonIgnitionDemoApp"/>
-	
+
 	<!-- The main class to run (where the main function is) -->
 	<property name="MainClass" value="com.hms.ewon.ignitionflexydemo.FlexyDemo"/>
-	
+
 	<!-- The JAVA heapsize -->
 	<property name="HeapSize" value="5M"/>
-	
+
 	<!-- The Flexy Admin login -->
 	<property name="FlexyLogin" value="adm"/>
-	
+
 	<!-- The Flexy Admin password -->
 	<property name="FlexyPassword" value="adm"/>
-	
+
 	<!-- The Flexy IP address -->
 	<property name="FlexyIP" value="10.0.0.53"/>
-	
+
 	<!-- Enable Debug mode -> Type 'true' if online debugging is used -->
-	<property name="Debug" value="false"/>	
-	
+	<property name="Debug" value="false"/>
+
 	<!-- ####################################################### -->
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
     <property name="ftp.dir" value="/usr"/>
     <property name="src.dir" value="src"/>
     <property name="projectHome" location="." />
-		   
+
 	<target name="buildjar">
 		<jar destfile="${projectHome}/build/${ProjectName}.jar" basedir="${projectHome}/bin">
 			<zipgroupfileset dir="lib" includes="commons-net-1.4.1.jar"/>
 		</jar>
-    </target>  
-	
+    </target>
+
     <target name="deploy_ftp" depends="buildjar">
-        <ftp 
+        <ftp
 			server="${FlexyIP}" remotedir="${ftp.dir}"
 			userid="${FlexyLogin}" password="${FlexyPassword}"
 			action="mkdir" verbose="true"/>
-        <ftp 
+        <ftp
 			server="${FlexyIP}" remotedir="${ftp.dir}"
 			userid="${FlexyLogin}" password="${FlexyPassword}"
 			verbose="true" passive="yes">
@@ -75,7 +75,7 @@
             verbose="true"
             src="http://${FlexyIP}/rcgi.bin/jvmCmd?cmd=start&amp;runCmd=%20-heapsize%20${HeapSize}%20-classpath%20${ftp.dir}/${ProjectName}.jar%20-emain%20${MainClass}%20-debugger%20-port%202800"
             />
-		
+
     	<echo>Debug Mode started</echo>
     </target>
 
@@ -87,8 +87,8 @@
     	    verbose="true"
     	    src="http://${FlexyIP}/rcgi.bin/jvmCmd?cmd=start&amp;runCmd=%20-heapsize%20${HeapSize}%20-classpath%20${ftp.dir}/${ProjectName}.jar%20-emain%20${MainClass}"
     	    />
-    
+
     	<echo>Application uploaded and started</echo>
     </target>
-	
+
 </project>
