@@ -3,7 +3,7 @@
 	<!-- ########  Type your Application/Flexy Parameters ######## -->
 	
 	<!-- The project name -->
-	<property name="ProjectName" value="FlexyIgnitionDemo"/>
+	<property name="ProjectName" value="eWonIgnitionDemoApp"/>
 	
 	<!-- The main class to run (where the main function is) -->
 	<property name="MainClass" value="com.hms.ewon.ignitionflexydemo.FlexyDemo"/>
