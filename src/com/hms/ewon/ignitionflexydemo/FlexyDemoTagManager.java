@@ -29,6 +29,12 @@ public class FlexyDemoTagManager {
       new FlexyDemoTagConfig("DEMOSCENARIO", FlexyDemoTagConfig.TYPE_INTEGER);
 
   /**
+   * Tag Config for Demo In Use/Lock Tag
+   */
+  private static final FlexyDemoTagConfig DEMOUSAGELOCK_TAGCONFIG =
+      new FlexyDemoTagConfig("DEMOINUSE", FlexyDemoTagConfig.TYPE_BOOLEAN);
+
+  /**
    * Header for var_lst.csv files
    */
   private static final String VARLST_HEADER =
@@ -147,6 +153,7 @@ public class FlexyDemoTagManager {
     // ADD REQUIRED BASIC DEMO TAGS
     builtVarLst.append(DEMOSTOP_TAGCONFIG.getTagAsJSON());
     builtVarLst.append(DEMOSCENARIO_TAGCONFIG.getTagAsJSON());
+    builtVarLst.append(DEMOUSAGELOCK_TAGCONFIG.getTagAsJSON());
 
     // ADD TAGS FROM SCENARIOS
     for (int scenarioID = 0; scenarioID < scenarios.size(); scenarioID++) {
