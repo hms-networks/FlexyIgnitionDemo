@@ -3,9 +3,9 @@
 ----------
 
 ## About ##
-HMS Ewon Ignition Integration Demo is a small suite of applications that showcase the features of integration between HMS Industrial Network's Ewon platform, and the Inductive Automation Ignition platform.
+HMS Ewon Ignition Integration Demo is a small suite of applications that showcase the features of integration between HMS Networks' Ewon platform, and the Inductive Automation Ignition platform.
 
-HMS Ewon Ignition Integration Demo was developed by HMS Industrial Networks using the Ewon Java Library. For more information on this demo and developing applications with the Ewon Java Library, please contact us at [us-services@hms.se](mailto:us-services@hms.se "us-services@hms.se") and/or visit the Ewon Developer website at [https://developer.ewon.biz/](https://developer.ewon.biz/ "https://developer.ewon.biz/")
+HMS Ewon Ignition Integration Demo was developed by HMS Networks using the Ewon Java Library. For more information on this demo and developing applications with the Ewon Java Library, please contact us at [us-services@hms.se](mailto:us-services@hms.se "us-services@hms.se") and/or visit the Ewon Developer website at [https://developer.ewon.biz/](https://developer.ewon.biz/ "https://developer.ewon.biz/")
 
 ## Issues/Problems ##
 If you experience a problem or bug, please check the Ewon Ignition Integration Demo Wiki for information, found here: [https://github.com/hms-networks/FlexyIgnitionDemo/wiki](https://github.com/hms-networks/FlexyIgnitionDemo/wiki "hms-networks/FlexyIgnitionDemo/wiki")
