@@ -68,10 +68,11 @@ public class FlexyDemoLabelMachine extends FlexyDemoFlexy {
    * FlexyDemo#APP_CYCLE_TIME_MS} cycle.
    */
   protected void runCycleUpdate() throws EWException {
+    int newBottlesPerCycle = 0;
     if (FlexyDemoTagManager.getTagAsBoolean(getTagFullName("PWR"))) {
-      FlexyDemoTagManager.setTagAsInt(getTagFullName("BOTTLESPERCYCLE"),
-          FlexyDemo.randomIntHighWeight(bottlesPerCycLow, bottlesPerCycHigh, bottlesPerCycIdeal));
+      newBottlesPerCycle = FlexyDemo.randomIntHighWeight(bottlesPerCycLow, bottlesPerCycHigh, bottlesPerCycIdeal);
     }
+    FlexyDemoTagManager.setTagAsInt(getTagFullName("BOTTLESPERCYCLE"), newBottlesPerCycle);
   }
 
 }
