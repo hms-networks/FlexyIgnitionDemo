@@ -40,6 +40,7 @@
     <property name="projectHome" location="." />
 
 	<target name="buildjar">
+        <mkdir dir="${projectHome}/bin"/>
 		<jar destfile="${projectHome}/build/${ProjectName}.jar" basedir="${projectHome}/bin">
 			<zipgroupfileset dir="lib" includes="commons-net-1.4.1.jar"/>
 		</jar>
