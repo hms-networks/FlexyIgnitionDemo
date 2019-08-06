@@ -44,6 +44,8 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 **Step 1:** Using a web browser, download **Ignition 8** from [https://inductiveautomation.com/downloads/ignition](https://inductiveautomation.com/downloads/ignition "https://inductiveautomation.com/downloads/ignition").
 
+>The Ignition download page has many options for installation. Please select the installer version for your operating system, “Ignition – Windows Installer 64-bit”, “Ignition – Linux Installer 64-bit” or “Ignition – macOS Installer.""
+
 **Step 2:** After the download is complete, run the Ignition installer.
 
 >The default installation options are satisfactory, although you may change them to fit your preference(s).
@@ -58,7 +60,7 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 **Step 5:** Download the latest HMS Ewon Connector from the EwonConnector releases page, found here: [https://github.com/hms-networks/EwonConnector/releases](https://github.com/hms-networks/EwonConnector/releases "https://github.com/hms-networks/EwonConnector/releases").
 
->To download, expand the `Assets` menu under the latest Ignition 8 release, and click on the first file, commonly named `EwonConnector-X.Y.Z.zip`, where X.Y.Z is the version number. Please note that the minimum supported version is 1.1.7.
+>To download, expand the `Assets` menu under the latest Ignition 8 release, and click on the first file, commonly named `EwonConnector-8-X.Y.Z.zip`, where X.Y.Z is the version number. Please note that the minimum supported version is 1.1.7.
 
 **Step 6:** After the download is complete, extract the contents to a folder of your choice.
 
@@ -94,7 +96,7 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 >If you don't know the IP address of your Ewon device, you can locate it using eBuddy.
 
-**Step 2:** Copy the files `EwonIgnitionDemoApp.jar` and `jvmrun` from the demo resource pack into the usr folder on your Ewon device, using the FTP connection you've just opened.
+**Step 2:** Copy the files `EwonIgnitionDemoApp.jar` and `jvmrun` from the demo resource pack into the `usr` folder on your Ewon device, using the FTP connection you've just opened.
 
 **Step 3:** Reboot your Ewon device by navigating to its web page, clicking the `Setup` tab, pressing `Reboot` and then confirming by pressing `REBOOT` once more.
 
@@ -120,7 +122,7 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 **Step 8:** Double-click your Ignition gateway from the list of `On Your Network` gateways.
 
->Since your gateway is installed on the same computer as Ignition Vision Client Launcher, the URL field of your gateway should display `http://localhost:8088`.
+>Since your gateway is installed on the same computer as Vision Client Launcher, the URL field of your gateway should display `http://localhost:8088`.
 
 >Please note that `8088` is a user-configurable port number, and your installation may not use port `8088` if you modified the port settings.
 
