@@ -58,15 +58,15 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 >Take note of the URL in your browser's address bar, as this will be required in later setup steps.
 
-**Step 5:** Download the latest HMS Ewon Connector from the EwonConnector GitHub releases page, found here: [https://github.com/hms-networks/EwonConnector/releases](https://github.com/hms-networks/EwonConnector/releases "https://github.com/hms-networks/EwonConnector/releases").
+**Step 5:** Download the latest HMS Ignition Ewon Connector from the IgnitionEwonConnector GitHub releases page, found here: [https://github.com/hms-networks/IgnitionEwonConnector/releases](https://github.com/hms-networks/IgnitionEwonConnector/releases "https://github.com/hms-networks/IgnitionEwonConnector/releases").
 
 >To download, expand the `Assets` menu under the latest Ignition 8 release, and click on the first file, commonly named `EwonConnector-8-X.Y.Z.zip`, where X.Y.Z is the version number. Please note that the minimum supported version is 1.1.7.
 
 **Step 6:** After the download is complete, extract the contents to a folder of your choice.
 
-**Step 7:** Install the HMS Ewon Connector by going to the `Config` tab in Ignition, clicking `Modules` and then choosing `Install or Upgrade a Module...`. Click `Choose File` and select the .modl file from the contents you've just extracted, then click `Install`.
+**Step 7:** Install the HMS Ignition Ewon Connector by going to the `Config` tab in Ignition, clicking `Modules` and then choosing `Install or Upgrade a Module...`. Click `Choose File` and select the .modl file from the contents you've just extracted, then click `Install`.
 
-**Step 8:** After installation of the HMS Ewon Connector, browse to the Ewon Connector configuration by going to the `Config` tab in Ignition, and clicking `Ewon Connector`, located under the `Tags` heading.
+**Step 8:** After installation of the HMS Ignition Ewon Connector, browse to the Ewon Connector configuration by going to the `Config` tab in Ignition, and clicking `Ewon Connector`, located under the `Tags` heading.
 
 **Step 9:** Ensure that the `Name` field is set to "Ewon". This field is case-sensitive, so values such as "eWon" will impair demo functionality.
 
@@ -86,7 +86,7 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 **Step 15:** Click `Save Changes` to apply your changes.
 
-**Step 16:** Restart the HMS Ewon Connector by going to the `Config` tab in Ignition, clicking `Modules` and clicking `restart` on the EwonConnector Ignition Module.
+**Step 16:** Restart the HMS Ignition Ewon Connector by going to the `Config` tab in Ignition, clicking `Modules` and clicking `restart` on the EwonConnector Ignition Module.
 
 ## Installation - Demo Application Setup ##
 
