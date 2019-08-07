@@ -33,7 +33,7 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 **Step 1:** Using a web browser, navigate your Ewon's web page and select the `Users` tab, located under `Setup`.
 
-**Step 2:** Click `Add`, then create a username and password of your choice.
+**Step 2:** Click `Add`, then populate `User Login` with "demo" and `Password`/`Confirm Password` with "demopassword".
 
 >Take note of this username and password, as it will be required in later setup steps. If you'd like, you may populate the `First Name`, `Last Name` and/or `Information` fields. IMPORTANT: Do not modify the rights of the new user.
 
@@ -80,7 +80,7 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 >All fields are required. Please note that you may need to select the `Change Password?` option to enable the password fields.
 
-**Step 14:** Under `Ewon Device Information`, input the username and password you created in Steps 2-4 of Ewon Setup.
+**Step 14:** Under `Ewon Device Information`, input the login you created in Steps 2-4 of Ewon Setup. (Username: demo, Password: demopassword)
 
 >All fields are required. Please note that you may need to select the `Change Password?` option to enable the password fields.
 

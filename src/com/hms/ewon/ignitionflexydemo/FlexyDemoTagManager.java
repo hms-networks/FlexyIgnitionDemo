@@ -188,7 +188,7 @@ public class FlexyDemoTagManager {
       }
 
       // LOGIN AND SET FILE TYPE
-      ftpClient.login("adm", "adm");
+      ftpClient.login("demo", "demopassword");
       ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 
       // PERFORM FTP UPLOAD
