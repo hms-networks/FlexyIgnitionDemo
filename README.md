@@ -58,7 +58,7 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 >Take note of the URL in your browser's address bar, as this will be required in later setup steps.
 
-**Step 5:** Download the latest HMS Ewon Connector from the EwonConnector releases page, found here: [https://github.com/hms-networks/EwonConnector/releases](https://github.com/hms-networks/EwonConnector/releases "https://github.com/hms-networks/EwonConnector/releases").
+**Step 5:** Download the latest HMS Ewon Connector from the EwonConnector GitHub releases page, found here: [https://github.com/hms-networks/EwonConnector/releases](https://github.com/hms-networks/EwonConnector/releases "https://github.com/hms-networks/EwonConnector/releases").
 
 >To download, expand the `Assets` menu under the latest Ignition 8 release, and click on the first file, commonly named `EwonConnector-8-X.Y.Z.zip`, where X.Y.Z is the version number. Please note that the minimum supported version is 1.1.7.
 
