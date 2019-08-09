@@ -92,7 +92,7 @@ This project was developed and is maintained by HMS Networks, using the Ewon Jav
 
 **Step 1:** Connect your computer to the LAN of your Ewon device, then open an FTP connection to your Ewon device.
 
->To create an FTP connection, using your file manager (i.e. Windows Explorer), enter `ftp://[EWON IP HERE]/` in the address bar, and hit enter.
+>To create an FTP connection, using your file manager (i.e. File Explorer), enter `ftp://[EWON IP HERE]/` in the address bar, and hit enter.
 
 >If you don't know the IP address of your Ewon device, you can locate it using eBuddy.
 
