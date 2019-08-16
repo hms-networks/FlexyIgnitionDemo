@@ -33,6 +33,19 @@ public class FlexyDemo {
   private static final int DEMO_NOT_STOPPED = 0;
 
   /**
+   * Constant for the minimum amount of available memory before the application pauses and forces
+   * garbage collection
+   */
+  private static final int MIN_FREE_MEMORY_BYTES = 1000000;
+
+
+  /*
+   * Constant for the maximum amount of time the application will wait for memory to be deallocated
+   * before stopping
+   */
+  private static final int MAX_MEMORY_WAIT_MILLIS = 10000;
+
+  /**
    * Constant fro Demo Stop Tag STOPPED
    */
   private final static int DEMO_STOPPED = 1;
@@ -241,6 +254,25 @@ public class FlexyDemo {
   private static void runDemo() {
     boolean isRunning = true;
     while (isRunning) {
+      // CHECK FOR FREE MEMORY AND PAUSE FOR GC IF NEEDED
+      long currFreeMemoryBytes = Runtime.getRuntime().freeMemory();
+      long gcStartTimeMillis = System.currentTimeMillis();
+      if (currFreeMemoryBytes < MIN_FREE_MEMORY_BYTES) {
+        System.gc();
+
+        while (currFreeMemoryBytes < MIN_FREE_MEMORY_BYTES) {
+          currFreeMemoryBytes = Runtime.getRuntime().freeMemory();
+
+          // KILL THE APPLICATION IF UNABLE TO FREE MEMORY IN TIME
+          long gcElapsedTimeMillis = System.currentTimeMillis() - gcStartTimeMillis;
+          if (gcElapsedTimeMillis > MAX_MEMORY_WAIT_MILLIS) {
+            System.out.println("[FlexyDemo] Application unable to allocate memory."
+                + " Application will now terminate to prevent unexpected behavior.");
+            System.exit(-1);
+          }
+        }
+      }
+
       // UPDATE SELECTED SCENARIO
       int chosenScenario = currentScenario;
       try {
