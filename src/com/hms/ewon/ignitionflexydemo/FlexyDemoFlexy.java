@@ -37,6 +37,11 @@ public abstract class FlexyDemoFlexy implements Runnable {
   public boolean initPowerStatus = PWR_ON;
 
   /**
+   * Variable that controls if <code>run<code> should be running
+   */
+  private boolean threadShouldRun = true;
+
+  /**
    * Variable to Store Tag Configs
    */
   private final ArrayList tagConfigs = new ArrayList();
@@ -94,6 +99,8 @@ public abstract class FlexyDemoFlexy implements Runnable {
 
     tagDefaults();
 
+    threadShouldRun = true;
+
     flexyDemoThread = new Thread(this);
     flexyDemoThread.start();
   }
@@ -107,7 +114,7 @@ public abstract class FlexyDemoFlexy implements Runnable {
       return;
     }
 
-    flexyDemoThread.stop();
+    threadShouldRun = false;
     flexyDemoThread = null;
   }
 
@@ -151,7 +158,7 @@ public abstract class FlexyDemoFlexy implements Runnable {
    */
   public void run() {
     boolean isRunning = true;
-    while (isRunning) {
+    while (isRunning && threadShouldRun) {
       try {
         runCycleUpdate();
       } catch (EWException e) {
