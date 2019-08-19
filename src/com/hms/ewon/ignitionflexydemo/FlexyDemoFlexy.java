@@ -157,8 +157,8 @@ public abstract class FlexyDemoFlexy implements Runnable {
    * @see java.lang.Runnable
    */
   public void run() {
-    boolean isRunning = true;
-    while (isRunning && threadShouldRun) {
+    boolean demoIsRunning = true;
+    while (demoIsRunning && threadShouldRun) {
       try {
         runCycleUpdate();
       } catch (EWException e) {
@@ -168,7 +168,7 @@ public abstract class FlexyDemoFlexy implements Runnable {
 
       // UPDATE isRunning TAG
       try {
-        isRunning = FlexyDemo.isRunning();
+        demoIsRunning = FlexyDemo.isRunning();
       } catch (EWException e) {
         System.out.println(
             "[FlexyDemo] An error occurred while checking demo run status. Application will now " +
