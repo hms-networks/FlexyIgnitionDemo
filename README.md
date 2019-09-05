@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-<body>
   <!-- HEADER/NAME -->
   <h1 id="name"><span style="font-variant: small-caps;">Ewon Ignition Demo</span></h1>
 
@@ -30,7 +27,7 @@
     <li><a href="#troubleshooting">Troubleshooting</a>
       <ol>
         <li><a href="#cannot-log-in-trial-expired">Cannot log in, trial expired</a></li>
-        <li><a href="#error-writing-to-tag-bad_notfound">Error writing to tag, Bad_NotFound<a/></li>
+        <li><a href="#error-writing-to-tag-bad_notfound">Error writing to tag, Bad_NotFound</a></li>
       </ol>
     </li>
     <li><a href="#appendices">Appendices</a>
@@ -137,7 +134,7 @@
   <p><strong>Step 1:</strong> Download and install the latest version of the Ignition Ewon Connector from the IgnitionEwonConnector GitHub repository, found here: <a href="https://github.com/hms-networks/IgnitionEwonConnector" class="uri">https://github.com/hms-networks/IgnitionEwonConnector</a>.</p>
   <p>For instructions on how to download and install the connector, please refer to the “Download”, “Installation” and “Ewon Setup” sections of the Ignition Ewon Connector GitHub repository.</p>
   <p><strong>NOTE:</strong> You may omit the “Setup Historical Logging for Tags” step in “Ewon Setup.”</p>
-  <img src="images/ignitionsetup-step1.png" width="400" /></p>
+  <img src="images/ignitionsetup-step1.png" width="400" />
   <br />
 
   <p><strong>Step 2:</strong> After the Ignition Ewon Connector has installed, open the Ewon Connector configuration webpage by selecting <code>Config</code> &gt; <code>TAGS</code> &gt; <code>Ewon Connector</code>, and populate the following fields.</p>
@@ -269,6 +266,3 @@
   <!-- APPENDICES/OBTAINING EWON NAME -->
   <h3 id="obtaining-an-ewons-name"><span style="font-variant: small-caps;">Obtaining an Ewon’s Name</span></h3>
   <p>To obtain an Ewon device’s name, you’ll need to access the Ewon device’s webpage. Navigate to the Ewon identification information page by selecting <code>Setup</code> &gt; <code>System</code> &gt; <code>Main</code> &gt; <code>General</code> &gt; <code>Identification</code>. Your Ewon’s name displays under <code>eWON Identification</code>.</p>
-</body>
-
-</html>
